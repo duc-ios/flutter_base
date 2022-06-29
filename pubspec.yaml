@@ -1,0 +1,45 @@
+name: flutter_base
+description: A base Flutter project.
+version: 1.0.0+1
+publish_to: none
+
+environment:
+  sdk: ">=2.16.0 <3.0.0"
+
+dependencies:
+  asuka: ^2.0.0+1
+  auto_route: ^4.2.1
+  bloc: ^8.0.3
+  easy_localization: ^3.0.1
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^8.0.1
+  flutter_loggy: ^2.0.1
+  freezed_annotation: ^2.1.0
+  get_it: ^7.2.0
+  hive_flutter: ^1.1.0
+  hive_generator: ^1.1.3
+  loggy: ^2.0.1+1
+  meta: ^1.7.0
+  package_info_plus: ^1.4.3
+  rxdart: ^0.27.4
+
+dev_dependencies:
+  flutter_lints: ^2.0.0
+  flutter_test:
+    sdk: flutter
+  build_runner: ^2.1.11
+  bloc_test: ^9.0.3
+  mocktail: ^0.2.0
+  integration_test:
+    sdk: flutter
+  freezed: ^2.1.0+1
+  auto_route_generator: ^4.2.1
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/i18n/
+
+flutter_gen:
+  output: lib/generated/

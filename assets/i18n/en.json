@@ -1,0 +1,15 @@
+{
+    "login": "Login",
+    "logout": "Logout",
+    "enter_your_name": "Enter your name",
+    "confirm": "Confirm",
+    "cancel": "Cancel",
+    "hello": "Hello, {name}",
+    "counter": "Counter",
+    "settings": "Settings",
+    "language": "Language",
+    "about": "About",
+    "terms_conditions": "Terms & Conditions",
+    "privacy_policies": "Privacy Policies",
+    "version_x": "Version {}"
+}
