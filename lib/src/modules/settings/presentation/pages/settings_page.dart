@@ -11,6 +11,8 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // FIX: https://github.com/aissat/easy_localization/issues/370#issuecomment-986201099
+    context.locale;
     return BlocBuilder<AuthCubit, AuthState>(
       builder: (context, state) => Scaffold(
         appBar: AppBar(title: Text(LocaleKeys.settings.tr())),
