@@ -8,7 +8,7 @@ environment:
 
 dependencies:
   asuka: ^2.0.0+1
-  auto_route: ^4.2.1
+  auto_route: ^5.0.0
   bloc: ^8.0.3
   easy_localization: ^3.0.1
   flutter:
@@ -30,11 +30,11 @@ dev_dependencies:
     sdk: flutter
   build_runner: ^2.1.11
   bloc_test: ^9.0.3
-  mocktail: ^0.2.0
+  mocktail: ^0.3.0
   integration_test:
     sdk: flutter
   freezed: ^2.1.0+1
-  auto_route_generator: ^4.2.1
+  auto_route_generator: ^5.0.0
 
 flutter:
   uses-material-design: true

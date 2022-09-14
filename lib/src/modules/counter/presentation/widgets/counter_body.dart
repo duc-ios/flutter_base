@@ -1,4 +1,4 @@
-import 'package:asuka/asuka.dart' as asuka;
+import 'package:asuka/asuka.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -83,7 +83,7 @@ class CounterBody extends StatelessWidget {
   }
 
   void showDialog(String message) {
-    asuka.showDialog(
+    Asuka.showDialog(
       builder: (context) => AlertDialog(
         backgroundColor: Colors.redAccent,
         content: Text(

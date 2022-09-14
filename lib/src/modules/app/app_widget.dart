@@ -1,4 +1,4 @@
-import 'package:asuka/asuka.dart' as asuka;
+import 'package:asuka/asuka.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +15,7 @@ class AppWidget extends StatelessWidget {
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,
       locale: context.locale,
-      builder: asuka.builder,
+      builder: Asuka.builder,
       theme: ThemeData(primarySwatch: Colors.deepOrange),
       routerDelegate: router.delegate(),
       routeInformationParser: router.defaultRouteParser(),
