@@ -16,6 +16,7 @@ dependencies:
   flutter_bloc: ^8.0.1
   flutter_config: ^2.0.0
   flutter_loggy: ^2.0.1
+  flutter_svg: ^1.1.5
   freezed_annotation: ^2.1.0
   get_it: ^7.2.0
   hive_flutter: ^1.1.0
@@ -36,11 +37,32 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.1.0+1
   auto_route_generator: ^5.0.0
+  flutter_gen_runner: ^4.3.0
 
 flutter:
   uses-material-design: true
   assets:
     - assets/i18n/
+    - assets/images/
+    - assets/icons/
 
 flutter_gen:
   output: lib/generated/
+
+  integrations:
+    flutter_svg: true
+    flare_flutter: false
+    rive: false
+
+  assets:
+    enabled: true
+    package_parameter_enabled: false
+    style: dot-delimiter
+    
+  fonts:
+    enabled: true
+
+  colors:
+    enabled: true
+    inputs:
+      - assets/color/colors.xml
