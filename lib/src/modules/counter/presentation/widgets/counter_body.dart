@@ -1,10 +1,8 @@
 import 'package:asuka/asuka.dart';
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_base/src/common/extensions/build_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../common/extensions/build_context_x.dart';
-import '../../../../../generated/locale_keys.g.dart';
 import '../blocs/counter/counter_bloc.dart';
 import '../cubits/tap/tap_cubit.dart';
 
@@ -25,7 +23,7 @@ class CounterBody extends StatelessWidget {
         }),
       ],
       child: Scaffold(
-        appBar: AppBar(title: Text(LocaleKeys.counter.tr())),
+        appBar: AppBar(title: Text(context.s.counter)),
         body: Center(
           child: Column(mainAxisSize: MainAxisSize.min, children: [
             BlocBuilder<CounterBloc, CounterState>(

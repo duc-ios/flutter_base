@@ -1,13 +1,12 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:package_info_plus/package_info_plus.dart';
 
-import '../../../../../generated/locale_keys.g.dart';
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../common/extensions/locale_x.dart';
 import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
+import '../../../../core/presentation/cubits/lang_cubit/lang_cubit.dart';
 import '../../../app/app_router.dart';
 
 class SettingsBody extends StatelessWidget {
@@ -22,31 +21,36 @@ class SettingsBody extends StatelessWidget {
         ListTile(
           title: Row(
             children: [
-              Text(LocaleKeys.language.tr()),
+              Text(context.s.language),
               const Spacer(),
-              DropdownButton<Locale>(
-                  value: context.locale,
-                  items: context.supportedLocales
-                      .map((locale) => DropdownMenuItem(
-                            value: locale,
-                            child: Text(locale.languageName),
-                          ))
-                      .toList(),
-                  onChanged: (value) async {
-                    if (value == null) return;
-                    await context.setLocale(value);
-                  }),
+              BlocBuilder<LangCubit, Locale>(
+                builder: (context, state) {
+                  return DropdownButton<Locale>(
+                      value: state,
+                      items: LocaleX.supportedLocales
+                          .map((locale) => DropdownMenuItem(
+                                value: locale,
+                                child: Text(locale.languageName),
+                              ))
+                          .toList(),
+                      onChanged: (value) {
+                        if (value == null) return;
+                        final langCubit = context.read<LangCubit>();
+                        langCubit.setLocale(value);
+                      });
+                },
+              ),
             ],
           ),
         ),
         ListTile(
-          title: Text(LocaleKeys.about.tr()),
+          title: Text(context.s.about),
           onTap: () => context.router.push(const AboutRoute()),
         ),
         ListTile(
-          title: Text(LocaleKeys.terms_conditions.tr()),
+          title: Text(context.s.terms_conditions),
           onTap: () => context.router.push(SupportiveRoute(
-            title: LocaleKeys.terms_conditions.tr(),
+            title: context.s.terms_conditions,
             content: '''
 Ex cillum cillum deserunt labore ea cupidatat consectetur irure labore esse commodo nisi. Nulla culpa voluptate consectetur eiusmod nisi veniam ut. Enim ex culpa enim occaecat ex.
 Commodo deserunt officia id ad occaecat id voluptate sint pariatur consectetur eu. Cillum eiusmod laboris tempor ea et quis duis quis sint cupidatat do. Laboris deserunt esse ut ullamco adipisicing Lorem consectetur pariatur sit amet minim reprehenderit consectetur.
@@ -55,9 +59,9 @@ Deserunt eiusmod est ut ut exercitation aliquip eu consequat eu exercitation ali
           )),
         ),
         ListTile(
-          title: Text(LocaleKeys.privacy_policies.tr()),
+          title: Text(context.s.privacy_policies),
           onTap: () => context.router.push(SupportiveRoute(
-            title: LocaleKeys.privacy_policies.tr(),
+            title: context.s.privacy_policies,
             content: '''
 Et incididunt minim tempor anim. Eiusmod cupidatat dolore est nulla. Cillum eu excepteur qui aliquip ullamco qui excepteur excepteur do esse labore minim voluptate. Minim deserunt tempor excepteur ipsum voluptate nulla aliquip elit aute culpa laborum aliquip mollit eu.
 Ea consectetur magna tempor officia do mollit reprehenderit proident esse culpa commodo culpa proident. Sit aliquip quis ea aliqua ullamco ad. Consequat labore consequat nostrud qui minim ea sit eiusmod laboris do incididunt.
@@ -66,7 +70,7 @@ Amet cupidatat dolore fugiat esse. Et occaecat ullamco id amet Lorem in dolore f
           )),
         ),
         ListTile(
-          title: Text(LocaleKeys.logout.tr()),
+          title: Text(context.s.logout),
           onTap: () => context.read<AuthCubit>().logout(),
         ),
         ListTile(
@@ -78,7 +82,7 @@ Amet cupidatat dolore fugiat esse. Et occaecat ullamco id amet Lorem in dolore f
 
                 if (version != null && buildNumber != null) {
                   return Text(
-                    LocaleKeys.version_x.tr(args: ['$version($buildNumber)']),
+                    context.s.version_x('$version($buildNumber)'),
                     style: context.textTheme.caption,
                   );
                 }

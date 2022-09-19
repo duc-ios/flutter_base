@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import '../../../../common/extensions/int_duration.dart';
 
-import '../../../../common/constants/constants.dart';
+import '../../../../common/utils/getit_utils.dart';
 import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
 import '../../../app/app_router.dart';
 

@@ -2,7 +2,7 @@ import 'package:bloc/bloc.dart';
 import '../../../../../common/extensions/int_duration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../common/constants/constants.dart';
+import '../../../../../common/utils/hive_utils.dart';
 import '../../../../../modules/auth/data/models/user_model.dart';
 
 part 'auth_cubit.freezed.dart';

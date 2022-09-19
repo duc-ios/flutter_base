@@ -1,9 +1,8 @@
-import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter_base/src/common/extensions/build_context_x.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../../generated/locale_keys.g.dart';
 import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
 
 class AuthBody extends StatefulWidget {
@@ -31,12 +30,12 @@ class _AuthBodyState extends State<AuthBody> {
             return const CircularProgressIndicator();
           }
           return ElevatedButton(
-            child: Text(LocaleKeys.login.tr()),
+            child: Text(context.s.login),
             onPressed: () {
               showCupertinoDialog(
                 context: context,
                 builder: (context) => CupertinoAlertDialog(
-                  title: Text(LocaleKeys.enter_your_name.tr()),
+                  title: Text(context.s.enter_your_name),
                   content: Padding(
                     padding: const EdgeInsets.only(top: 8.0),
                     child: CupertinoTextField(
@@ -49,10 +48,10 @@ class _AuthBodyState extends State<AuthBody> {
                     CupertinoDialogAction(
                         isDefaultAction: true,
                         onPressed: () => _login(context),
-                        child: Text(LocaleKeys.confirm.tr())),
+                        child: Text(context.s.confirm)),
                     CupertinoDialogAction(
                         onPressed: () => Navigator.pop(context),
-                        child: Text(LocaleKeys.cancel.tr()))
+                        child: Text(context.s.cancel))
                   ],
                 ),
               );
@@ -70,7 +69,7 @@ class _AuthBodyState extends State<AuthBody> {
       showDialog(
           context: context,
           builder: (_) => AlertDialog(
-                content: const Text(LocaleKeys.enter_your_name).tr(),
+                content: Text(context.s.enter_your_name),
               ));
     } else {
       context.read<AuthCubit>().login(name);

@@ -2,8 +2,5 @@
 <resources>
     <color name="white">#FFFFFF</color>
     <color name="black">#000000</color>
-    <color name="gray_70">#EEEEEE</color>
-    <color name="gray_410">#979797</color>
-    <color name="crimson_red" type="material">#CF2A2A</color>
-    <color name="yellow_ocher" type="material material-accent">#DF9527</color>
+    <color name="material_primary" type="material">#FF5722</color>
 </resources>

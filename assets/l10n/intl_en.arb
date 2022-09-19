@@ -11,5 +11,5 @@
     "about": "About",
     "terms_conditions": "Terms & Conditions",
     "privacy_policies": "Privacy Policies",
-    "version_x": "Version {}"
+    "version_x": "Version {version}"
 }
