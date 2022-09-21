@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../common/exceptions/failure.dart';
+import '../../../../../core/domain/errors/failure.dart';
 
 part 'counter_bloc.freezed.dart';
 part 'counter_event.dart';

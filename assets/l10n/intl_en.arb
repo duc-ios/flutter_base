@@ -1,7 +1,8 @@
 {
     "login": "Login",
     "logout": "Logout",
-    "enter_your_name": "Enter your name",
+    "enter_valid_email": "Enter valid email",
+    "enter_valid_password": "Enter valid password",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "hello": "Hello, {name}",

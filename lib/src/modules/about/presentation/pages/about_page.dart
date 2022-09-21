@@ -1,4 +1,4 @@
-import 'package:flutter_base/src/common/extensions/build_context_x.dart';
+import '../../../../common/extensions/build_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

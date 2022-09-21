@@ -1,35 +1,35 @@
 import 'package:bloc/bloc.dart';
-import '../../../../../common/extensions/int_duration.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../common/utils/hive_utils.dart';
-import '../../../../../modules/auth/data/models/user_model.dart';
+import '../../../../../modules/auth/application/auth_service.dart';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
 
 class AuthCubit extends Cubit<AuthState> {
-  AuthCubit()
-      : super((box.get('user') is UserModel)
+  final AuthService _service;
+
+  AuthCubit(
+    this._service,
+  ) : super((_service.getUser() != null)
             ? const AuthState.authenticated()
             : const AuthState.unauthenticated());
 
-  void set(UserModel user) {
-    box.put('user', user);
-    emit(const AuthState.authenticated());
-  }
-
-  Future<void> login(String name) async {
+  Future<void> login({required String email, required String password}) async {
     emit(const AuthState.loading());
-    await Future.delayed(1.seconds);
-    set(UserModel(name));
-    emit(const AuthState.authenticated());
+    try {
+      final user = await _service.login(email: email, password: password);
+      _service.setUser(user);
+      emit(const AuthState.authenticated());
+    } catch (error) {
+      emit(const AuthState.unauthenticated());
+      rethrow;
+    }
   }
 
   void logout() async {
     emit(const AuthState.loading());
-    await Future.delayed(1.seconds);
-    box.delete('user');
+    await _service.logout();
     emit(const AuthState.unauthenticated());
   }
 }

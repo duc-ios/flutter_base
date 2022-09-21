@@ -1,8 +1,6 @@
-import 'dart:io';
 import 'dart:ui';
 
 import '../../../generated/l10n.dart';
-import '../utils/hive_utils.dart';
 
 extension LocaleX on Locale {
   String get languageName {
@@ -27,18 +25,6 @@ extension LocaleX on Locale {
         ..sort((l, r) {
           return l.languageCode.compareTo(r.languageCode);
         });
-
-  static Locale get deviceLocale => Platform.localeName.toLocale;
-
-  static Locale get currentLocale {
-    final String lang = box.get(BoxKeys.lang) ?? Platform.localeName;
-    final locale = lang.toLocale;
-    if (S.delegate.isSupported(locale)) {
-      return locale;
-    } else {
-      return LocaleX.fallbackLocale;
-    }
-  }
 
   static Locale get fallbackLocale =>
       const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant');

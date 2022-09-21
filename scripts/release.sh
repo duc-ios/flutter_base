@@ -16,10 +16,8 @@ select flavor in "DEV" "PRG" "UAT" "PRD"; do
     version=`grep 'version: ' pubspec.yaml | sed 's/version: //'`
     echo "Peparing build: ${app_name}_$version"
 
-    # Generate assets
-    flutter pub get
-    flutter pub run build_runner build --delete-conflicting-outputs
-    sh generate_assets.sh
+    # Clean & generate assets
+    sh scripts/clean.sh
 
     # Build and open apk
     flutter build apk --flavor $flavor &&

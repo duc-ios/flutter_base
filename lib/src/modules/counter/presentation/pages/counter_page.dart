@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../blocs/counter/counter_bloc.dart';
 import '../cubits/tap/tap_cubit.dart';
-
 import '../widgets/counter_body.dart';
 
 class CounterPage extends StatelessWidget {

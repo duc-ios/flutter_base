@@ -1,8 +1,10 @@
-import 'package:flutter_base/src/common/extensions/build_context_x.dart';
+import 'package:asuka/asuka.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../common/extensions/build_context_x.dart';
+import '../../../../core/domain/errors/auth_error.dart';
 import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
 
 class AuthBody extends StatefulWidget {
@@ -13,11 +15,12 @@ class AuthBody extends StatefulWidget {
 }
 
 class _AuthBodyState extends State<AuthBody> {
-  final textEditingController = TextEditingController();
+  final _emailTextEditingController = TextEditingController();
+  final _passwordTextEditingController = TextEditingController();
 
   @override
   void dispose() {
-    textEditingController.dispose();
+    _emailTextEditingController.dispose();
     super.dispose();
   }
 
@@ -29,33 +32,32 @@ class _AuthBodyState extends State<AuthBody> {
           if (state == const AuthState.loading()) {
             return const CircularProgressIndicator();
           }
-          return ElevatedButton(
-            child: Text(context.s.login),
-            onPressed: () {
-              showCupertinoDialog(
-                context: context,
-                builder: (context) => CupertinoAlertDialog(
-                  title: Text(context.s.enter_your_name),
-                  content: Padding(
-                    padding: const EdgeInsets.only(top: 8.0),
-                    child: CupertinoTextField(
-                      focusNode: FocusNode()..requestFocus(),
-                      controller: textEditingController,
-                      onSubmitted: (value) => _login(context),
+          return SafeArea(
+            child: Padding(
+              padding: const EdgeInsets.all(32.0),
+              child: Wrap(
+                alignment: WrapAlignment.center,
+                runSpacing: 16.0,
+                children: [
+                  TextField(
+                    controller: _emailTextEditingController,
+                    decoration: const InputDecoration(
+                      hintText: 'e@ma.il',
                     ),
                   ),
-                  actions: [
-                    CupertinoDialogAction(
-                        isDefaultAction: true,
-                        onPressed: () => _login(context),
-                        child: Text(context.s.confirm)),
-                    CupertinoDialogAction(
-                        onPressed: () => Navigator.pop(context),
-                        child: Text(context.s.cancel))
-                  ],
-                ),
-              );
-            },
+                  TextField(
+                    controller: _passwordTextEditingController,
+                    decoration: const InputDecoration(
+                      hintText: 'aA123456@',
+                    ),
+                  ),
+                  ElevatedButton(
+                    child: Text(context.s.login),
+                    onPressed: () => _login(context),
+                  ),
+                ],
+              ),
+            ),
           );
         },
       ),
@@ -63,16 +65,34 @@ class _AuthBodyState extends State<AuthBody> {
   }
 
   void _login(BuildContext context) async {
-    Navigator.of(context).pop();
-    final name = textEditingController.text;
-    if (name.isEmpty) {
-      showDialog(
-          context: context,
-          builder: (_) => AlertDialog(
-                content: Text(context.s.enter_your_name),
-              ));
-    } else {
-      context.read<AuthCubit>().login(name);
+    final email = _emailTextEditingController.text;
+    final password = _passwordTextEditingController.text;
+    try {
+      await context.read<AuthCubit>().login(email: email, password: password);
+    } on AuthError catch (error) {
+      error.when(
+        invalidEmail: () {
+          _showError(context.s.enter_valid_email);
+        },
+        invalidPassword: () => _showError(context.s.enter_valid_password),
+      );
+    } catch (error) {
+      _showError(error.toString());
     }
+  }
+
+  void _showError(String message) {
+    Asuka.showDialog(
+      barrierDismissible: false,
+      builder: (alertContext) => CupertinoAlertDialog(
+        content: Text(message),
+        actions: [
+          CupertinoDialogAction(
+            child: const Text('OK'),
+            onPressed: () => Navigator.pop(alertContext),
+          )
+        ],
+      ),
+    );
   }
 }

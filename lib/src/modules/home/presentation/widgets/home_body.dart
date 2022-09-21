@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter_base/src/common/extensions/build_context_x.dart';
 import 'package:flutter/material.dart';
 
-import '../../../../common/utils/hive_utils.dart';
+import '../../../../common/extensions/build_context_x.dart';
+import '../../../../common/utils/getit_utils.dart';
 import '../../../app/app_router.dart';
-import '../../../auth/data/models/user_model.dart';
+import '../../../auth/application/auth_service.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({
@@ -18,7 +18,7 @@ class HomeBody extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 32),
-          Text(context.s.hello((box.get('user') as UserModel).name),
+          Text(context.s.hello(getIt<AuthService>().getUser()?.name ?? ''),
               style: context.textTheme.headline4),
           const SizedBox(height: 32),
           ElevatedButton(

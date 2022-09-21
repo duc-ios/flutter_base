@@ -1,7 +1,8 @@
 {
     "login": "连接",
     "logout": "登出",
-    "enter_your_name": "输入你的名字",
+    "enter_valid_email": "输入有效的邮箱",
+    "enter_valid_password": "输入有效密码",
     "confirm": "确认",
     "cancel": "取消",
     "hello": "你好，{name}",
