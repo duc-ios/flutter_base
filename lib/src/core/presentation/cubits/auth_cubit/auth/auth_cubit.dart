@@ -2,6 +2,8 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../modules/auth/application/auth_service.dart';
+import '../../../../../modules/auth/infrastructure/models/user_model.dart';
+import '../../../../domain/errors/auth_error.dart';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
@@ -11,20 +13,22 @@ class AuthCubit extends Cubit<AuthState> {
 
   AuthCubit(
     this._service,
-  ) : super((_service.getUser() != null)
-            ? const AuthState.authenticated()
-            : const AuthState.unauthenticated());
+  ) : super(() {
+          final user = _service.getUser();
+          if (user != null) {
+            return AuthState.authenticated(user);
+          } else {
+            return const AuthState.unauthenticated();
+          }
+        }());
 
   Future<void> login({required String email, required String password}) async {
     emit(const AuthState.loading());
-    try {
-      final user = await _service.login(email: email, password: password);
-      _service.setUser(user);
-      emit(const AuthState.authenticated());
-    } catch (error) {
-      emit(const AuthState.unauthenticated());
-      rethrow;
-    }
+    final result = await _service.login(email: email, password: password);
+    emit(result.fold((l) => AuthState.error(l), (r) {
+      _service.setUser(r);
+      return AuthState.authenticated(r);
+    }));
   }
 
   void logout() async {

@@ -14,7 +14,7 @@ class SplashPage extends StatelessWidget {
     await Future.delayed(1.seconds);
 
     getIt<AuthCubit>().state.whenOrNull(
-          authenticated: () =>
+          authenticated: (user) =>
               getIt<AppRouter>().replaceAll([const HomeRoute()]),
           unauthenticated: () =>
               getIt<AppRouter>().replaceAll([const AuthRoute()]),

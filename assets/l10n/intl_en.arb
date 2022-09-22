@@ -1,8 +1,10 @@
 {
     "login": "Login",
     "logout": "Logout",
-    "enter_valid_email": "Enter valid email",
-    "enter_valid_password": "Enter valid password",
+    "error": "Error",
+    "invalid_email": "Invalid email",
+    "invalid_password": "Invalid password",
+    "ok": "OK",
     "confirm": "Confirm",
     "cancel": "Cancel",
     "hello": "Hello, {name}",

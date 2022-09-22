@@ -15,7 +15,7 @@ class SettingsPage extends StatelessWidget {
         appBar: AppBar(title: Text(context.s.settings)),
         body: state.maybeWhen(
           orElse: () => const Center(child: CircularProgressIndicator()),
-          authenticated: () => const SettingsBody(),
+          authenticated: (user) => const SettingsBody(),
         ),
       ),
     );

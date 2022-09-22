@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../core/domain/errors/auth_error.dart';
 import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
 
 class AuthBody extends StatefulWidget {
@@ -27,7 +26,14 @@ class _AuthBodyState extends State<AuthBody> {
   @override
   Widget build(BuildContext context) {
     return Center(
-      child: BlocBuilder<AuthCubit, AuthState>(
+      child: BlocConsumer<AuthCubit, AuthState>(
+        listener: (context, state) {
+          state.whenOrNull(
+            error: (error) => error.whenOrNull(
+              other: (message) => _showError(message),
+            ),
+          );
+        },
         builder: (context, state) {
           if (state == const AuthState.loading()) {
             return const CircularProgressIndicator();
@@ -41,14 +47,24 @@ class _AuthBodyState extends State<AuthBody> {
                 children: [
                   TextField(
                     controller: _emailTextEditingController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'e@ma.il',
+                      errorText: state.whenOrNull<String?>(
+                        error: (error) => error.whenOrNull(
+                          invalidEmail: () => context.s.invalid_email,
+                        ),
+                      ),
                     ),
                   ),
                   TextField(
                     controller: _passwordTextEditingController,
-                    decoration: const InputDecoration(
+                    decoration: InputDecoration(
                       hintText: 'aA123456@',
+                      errorText: state.whenOrNull<String?>(
+                        error: (error) => error.whenOrNull(
+                          invalidPassword: () => context.s.invalid_password,
+                        ),
+                      ),
                     ),
                   ),
                   ElevatedButton(
@@ -67,28 +83,18 @@ class _AuthBodyState extends State<AuthBody> {
   void _login(BuildContext context) async {
     final email = _emailTextEditingController.text;
     final password = _passwordTextEditingController.text;
-    try {
-      await context.read<AuthCubit>().login(email: email, password: password);
-    } on AuthError catch (error) {
-      error.when(
-        invalidEmail: () {
-          _showError(context.s.enter_valid_email);
-        },
-        invalidPassword: () => _showError(context.s.enter_valid_password),
-      );
-    } catch (error) {
-      _showError(error.toString());
-    }
+    await context.read<AuthCubit>().login(email: email, password: password);
   }
 
   void _showError(String message) {
     Asuka.showDialog(
       barrierDismissible: false,
       builder: (alertContext) => CupertinoAlertDialog(
+        title: Text(alertContext.s.error),
         content: Text(message),
         actions: [
           CupertinoDialogAction(
-            child: const Text('OK'),
+            child: Text(alertContext.s.ok),
             onPressed: () => Navigator.pop(alertContext),
           )
         ],
