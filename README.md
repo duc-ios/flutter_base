@@ -6,6 +6,15 @@ Base Flutter Project.
 
 This is a base Flutter project.
 
+Git commit prefixes:
+- `[alpha] [beta] [cr2]` - phrase
+- `[fix]` - fix mantis/issues ...
+- `[update]` - update old code
+- `[refactor]` - refactor code
+- `[docs]` - documents added
+- `[test]` - test cases added
+- ...
+
 A few resources to get you started:
 
 - [Flutter: Multi-Platform Application Development](https://docs.flutter.dev/)
