@@ -1,8 +1,8 @@
-import '../../../../common/extensions/build_context_x.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
+import '../../../../common/extensions/build_context_x.dart';
+import '../../../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
 import '../widgets/settings_body.dart';
 
 class SettingsPage extends StatelessWidget {

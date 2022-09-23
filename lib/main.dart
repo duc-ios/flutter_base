@@ -6,9 +6,9 @@ import 'src/common/extensions/locale_x.dart';
 import 'src/common/utils/getit_utils.dart';
 import 'src/common/utils/hive_utils.dart';
 import 'src/common/utils/logger.dart';
-import 'src/core/application/lang_service.dart';
-import 'src/core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
-import 'src/core/presentation/cubits/lang_cubit/lang_cubit.dart';
+import 'src/core/application/cubits/auth_cubit/auth/auth_cubit.dart';
+import 'src/core/application/cubits/lang_cubit/lang_cubit.dart';
+import 'src/core/infrastructure/repositories/lang_repository.dart';
 import 'src/modules/app/app_router.dart';
 import 'src/modules/app/app_widget.dart';
 
@@ -19,9 +19,10 @@ void main() async {
   await HiveUtils.setup();
   await GetItUtils.setup();
 
-  final langService = getIt<LangService>();
-  logger.d('deviceLocale - ${langService.getDeviceLocale().fullLanguageCode}');
-  logger.d('currentLocale - ${langService.getLocale().fullLanguageCode}');
+  final langRepository = getIt<LangRepository>();
+  logger
+      .d('deviceLocale - ${langRepository.getDeviceLocale().fullLanguageCode}');
+  logger.d('currentLocale - ${langRepository.getLocale().fullLanguageCode}');
 
   runApp(
     MultiBlocProvider(

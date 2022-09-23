@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../common/utils/getit_utils.dart';
+import '../../../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
 import '../../../app/app_router.dart';
-import '../../../auth/application/auth_service.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({
@@ -18,8 +18,12 @@ class HomeBody extends StatelessWidget {
         mainAxisSize: MainAxisSize.min,
         children: [
           const SizedBox(height: 32),
-          Text(context.s.hello(getIt<AuthService>().getUser()?.name ?? ''),
-              style: context.textTheme.headline4),
+          BlocBuilder<AuthCubit, AuthState>(
+            builder: (context, state) => state.maybeWhen(
+                orElse: () => Text(context.s.error_unexpected),
+                authenticated: (user) => Text(context.s.hello(user.name),
+                    style: context.textTheme.headline4)),
+          ),
           const SizedBox(height: 32),
           ElevatedButton(
             onPressed: () => context.router.push(const CounterRoute()),

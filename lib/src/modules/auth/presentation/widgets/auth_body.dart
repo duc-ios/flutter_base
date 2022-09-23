@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../core/presentation/cubits/auth_cubit/auth/auth_cubit.dart';
+import '../../../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
 
 class AuthBody extends StatefulWidget {
   const AuthBody({Key? key}) : super(key: key);

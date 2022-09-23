@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
-import '../blocs/counter/counter_bloc.dart';
-import '../cubits/tap/tap_cubit.dart';
+import '../../application/blocs/counter/counter_bloc.dart';
+import '../../application/cubits/tap/tap_cubit.dart';
 
 class CounterBody extends StatelessWidget {
   const CounterBody({Key? key}) : super(key: key);

@@ -1,21 +1,21 @@
 import 'dart:ui';
 
 import 'package:bloc/bloc.dart';
+import '../../../infrastructure/repositories/lang_repository.dart';
 
 import '../../../../common/extensions/locale_x.dart';
 import '../../../../common/utils/logger.dart';
-import '../../../application/lang_service.dart';
 
 class LangCubit extends Cubit<Locale> {
   LangCubit(
-    this._langService,
-  ) : super(_langService.getLocale());
+    this._repository,
+  ) : super(_repository.getLocale());
 
-  final LangService _langService;
+  final LangRepository _repository;
 
   void setLocale(Locale val) async {
     try {
-      await _langService.setLocale(val);
+      await _repository.setLocale(val);
       logger.d('currentLocale - ${val.fullLanguageCode}');
       emit(val);
     } catch (error) {

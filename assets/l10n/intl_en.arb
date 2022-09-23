@@ -2,6 +2,7 @@
     "login": "Login",
     "logout": "Logout",
     "error": "Error",
+    "error_unexpected": "Something went wrong!",
     "invalid_email": "Invalid email",
     "invalid_password": "Invalid password",
     "ok": "OK",
