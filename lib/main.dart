@@ -4,8 +4,8 @@ import 'package:flutter_config/flutter_config.dart';
 
 import 'src/common/extensions/locale_x.dart';
 import 'src/common/utils/getit_utils.dart';
-import 'src/common/utils/hive_utils.dart';
 import 'src/common/utils/logger.dart';
+import 'src/common/utils/storage.dart';
 import 'src/core/application/cubits/auth_cubit/auth/auth_cubit.dart';
 import 'src/core/application/cubits/lang_cubit/lang_cubit.dart';
 import 'src/core/infrastructure/repositories/lang_repository.dart';
@@ -16,7 +16,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await FlutterConfig.loadEnvVariables();
-  await HiveUtils.setup();
+  await Storage.setup();
   await GetItUtils.setup();
 
   final langRepository = getIt<LangRepository>();

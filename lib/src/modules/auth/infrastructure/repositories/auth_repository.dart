@@ -1,8 +1,8 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../common/extensions/int_duration.dart';
-import '../../../../common/utils/hive_utils.dart';
 import '../../../../common/utils/logger.dart';
+import '../../../../common/utils/storage.dart';
 import '../../../../common/utils/validator.dart';
 import '../../../../core/domain/errors/auth_error.dart';
 import '../../domain/interfaces/auth_interface.dart';
@@ -12,7 +12,7 @@ class AuthRepository implements AuthInterface {
   @override
   UserModel? getUser() {
     try {
-      return box.get(BoxKeys.user);
+      return Storage.user;
     } catch (error) {
       logger.e(error);
       return null;
@@ -20,7 +20,7 @@ class AuthRepository implements AuthInterface {
   }
 
   @override
-  Future setUser(UserModel? val) async => box.put(BoxKeys.user, val);
+  Future setUser(UserModel? val) async => Storage.setUser(val);
 
   @override
   Future<Either<AuthError, UserModel>> login({
