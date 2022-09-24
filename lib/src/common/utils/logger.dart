@@ -26,6 +26,9 @@ class _Logger {
   // Blue text
   i(dynamic msg) => logInfo('${_colorFor('i')}${msg.toString()}\x1B[0m');
 
+  // Green text
+  s(dynamic msg) => logInfo('${_colorFor('s')}${msg.toString()}\x1B[0m');
+
   // Yellow text
   w(dynamic msg) => logWarning('${_colorFor('w')}${msg.toString()}\x1B[0m');
 

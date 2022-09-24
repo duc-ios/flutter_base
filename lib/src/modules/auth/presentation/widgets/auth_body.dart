@@ -16,6 +16,7 @@ class AuthBody extends StatefulWidget {
 class _AuthBodyState extends State<AuthBody> {
   final _emailTextEditingController = TextEditingController();
   final _passwordTextEditingController = TextEditingController();
+  bool _passwordVisible = false;
 
   @override
   void dispose() {
@@ -48,22 +49,40 @@ class _AuthBodyState extends State<AuthBody> {
                   TextField(
                     controller: _emailTextEditingController,
                     decoration: InputDecoration(
-                      hintText: 'e@ma.il',
+                      label: Text(context.s.email),
+                      hintText: 'example@domain.com',
                       errorText: state.whenOrNull<String?>(
                         error: (error) => error.whenOrNull(
-                          invalidEmail: () => context.s.invalid_email,
+                          invalidEmail: () => context.s.error_invalid_email,
                         ),
                       ),
+                      errorMaxLines: 2,
                     ),
                   ),
                   TextField(
+                    obscureText: !_passwordVisible,
                     controller: _passwordTextEditingController,
                     decoration: InputDecoration(
+                      label: Text(context.s.password),
                       hintText: 'aA123456@',
                       errorText: state.whenOrNull<String?>(
                         error: (error) => error.whenOrNull(
-                          invalidPassword: () => context.s.invalid_password,
+                          invalidPassword: () =>
+                              context.s.error_invalid_password,
                         ),
+                      ),
+                      errorMaxLines: 2,
+                      suffixIcon: IconButton(
+                        icon: Icon(
+                          _passwordVisible
+                              ? Icons.visibility
+                              : Icons.visibility_off,
+                        ),
+                        onPressed: () {
+                          setState(() {
+                            _passwordVisible = !_passwordVisible;
+                          });
+                        },
                       ),
                     ),
                   ),

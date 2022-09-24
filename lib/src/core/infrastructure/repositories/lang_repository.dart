@@ -3,10 +3,10 @@ import 'dart:ui';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/extensions/locale_x.dart';
-import '../../domain/interfaces/lang_interface.dart';
+import '../../domain/interfaces/lang_repository_interface.dart';
 import '../datasources/local/storage.dart';
 
-class LangRepository implements LangInterface {
+class LangRepository implements ILangRepository {
   @override
   Locale getDeviceLocale() => Platform.localeName.toLocale;
 

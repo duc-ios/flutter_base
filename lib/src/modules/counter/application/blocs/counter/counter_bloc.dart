@@ -1,8 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../core/domain/errors/failure.dart';
-
 part 'counter_bloc.freezed.dart';
 part 'counter_event.dart';
 part 'counter_state.dart';
@@ -16,9 +14,9 @@ class CounterBloc extends Bloc<CounterEvent, CounterState> {
           add: (value) async {
             final newValue = _value + value;
             if (newValue > 5) {
-              emit(_Failure(Failure('value must be < 5')));
+              emit(const _Failure('value must be < 5'));
             } else if (newValue < 0) {
-              emit(_Failure(Failure('value must be >= 0')));
+              emit(const _Failure('value must be >= 0'));
             } else {
               emit(const _Loading());
               await Future.delayed(const Duration(milliseconds: 500));

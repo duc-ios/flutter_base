@@ -16,10 +16,10 @@ class CounterBody extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<CounterBloc, CounterState>(listener: (_, state) {
-          state.whenOrNull(failure: (failure) => showDialog(failure.message));
+          state.whenOrNull(failure: (error) => showDialog(error.toString()));
         }),
         BlocListener<TapCubit, TapState>(listener: (_, state) {
-          state.whenOrNull(failure: (failure) => showDialog(failure.message));
+          state.whenOrNull(failure: (error) => showDialog(error.toString()));
         }),
       ],
       child: Scaffold(

@@ -14,8 +14,8 @@ class UserModel extends HiveObject with _$UserModel implements User {
   factory UserModel({
     @HiveField(0) @Default('') String name,
     @HiveField(1) @Default('') String email,
+    @HiveField(2) @Default('') String avatar,
   }) = _UserModel;
 
-  factory UserModel.fromJson(Map<String, dynamic> json) =>
-      _$UserModelFromJson(json);
+  factory UserModel.fromJson(dynamic json) => _$UserModelFromJson(json);
 }

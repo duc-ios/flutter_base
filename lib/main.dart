@@ -1,9 +1,9 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_config/flutter_config.dart';
 
 import 'src/common/extensions/locale_x.dart';
+import 'src/common/utils/environment.dart';
 import 'src/common/utils/getit_utils.dart';
 import 'src/common/utils/global_bloc_observer.dart';
 import 'src/common/utils/logger.dart';
@@ -17,7 +17,7 @@ import 'src/modules/app/app_widget.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
-  await FlutterConfig.loadEnvVariables();
+  await Environment.setup();
   await Storage.setup();
   await GetItUtils.setup();
 
