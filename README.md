@@ -22,8 +22,8 @@ A few resources to get you started:
 - [Clean Architecture by Robert C. Martin (Uncle Bob)](https://blog.cleancoder.com/uncle-bob/2012/08/13/the-clean-architecture.html)
 - [Flutter Firebase & DDD Course](https://resocoder.com/category/tutorials/flutter/firebase-ddd/)
 
-![ddd](ddd.svg)
+![ddd](https://github.com/duc-ios/flutter_base/raw/main/ddd.svg)
 
-![dddclean_architecture_folders](ddd_folders.jpg)
+![ddd_folders](https://github.com/duc-ios/flutter_base/raw/main/ddd_folders.jpg)
 
 Copyright © 2022 Duc iOS

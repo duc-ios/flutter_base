@@ -1,9 +1,10 @@
 import 'package:hive_flutter/hive_flutter.dart';
 
-import '../../modules/auth/infrastructure/models/user_model.dart';
-import 'logger.dart';
+import '../../../../common/utils/logger.dart';
+import '../../../../modules/auth/infrastructure/models/user_model.dart';
 
 class _BoxKeys {
+  static const box = 'box';
   static const lang = 'lang';
   static const user = 'user';
   static const deviceId = 'device_id';
@@ -11,21 +12,21 @@ class _BoxKeys {
 }
 
 class Storage {
-  static final _box = Hive.box('box');
+  static final _box = Hive.box(_BoxKeys.box);
 
   static setup() async {
     await Hive.initFlutter();
     Hive.registerAdapter(UserModelAdapter());
     try {
-      await Hive.openBox('box');
+      await Hive.openBox(_BoxKeys.box);
     } catch (error) {
       logger.e(error);
       try {
-        await Hive.deleteBoxFromDisk('box');
+        await Hive.deleteBoxFromDisk(_BoxKeys.box);
       } catch (error) {
         logger.e(error);
       }
-      await Hive.openBox('box');
+      await Hive.openBox(_BoxKeys.box);
     }
   }
 

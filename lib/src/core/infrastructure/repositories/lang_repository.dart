@@ -3,8 +3,8 @@ import 'dart:ui';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/extensions/locale_x.dart';
-import '../../../common/utils/storage.dart';
 import '../../domain/interfaces/lang_interface.dart';
+import '../datasources/local/storage.dart';
 
 class LangRepository implements LangInterface {
   @override

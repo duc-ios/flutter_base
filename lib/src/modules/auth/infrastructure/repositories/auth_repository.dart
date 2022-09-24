@@ -2,7 +2,7 @@ import 'package:dartz/dartz.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/logger.dart';
-import '../../../../common/utils/storage.dart';
+import '../../../../core/infrastructure/datasources/local/storage.dart';
 import '../../../../common/utils/validator.dart';
 import '../../../../core/domain/errors/auth_error.dart';
 import '../../domain/interfaces/auth_interface.dart';
