@@ -1,9 +1,11 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_config/flutter_config.dart';
 
 import 'src/common/extensions/locale_x.dart';
 import 'src/common/utils/getit_utils.dart';
+import 'src/common/utils/global_bloc_observer.dart';
 import 'src/common/utils/logger.dart';
 import 'src/common/utils/storage.dart';
 import 'src/core/application/cubits/auth_cubit/auth/auth_cubit.dart';
@@ -24,6 +26,9 @@ void main() async {
       .d('deviceLocale - ${langRepository.getDeviceLocale().fullLanguageCode}');
   logger.d('currentLocale - ${langRepository.getLocale().fullLanguageCode}');
 
+  if (!kReleaseMode) {
+    Bloc.observer = GlobalBlocObserver();
+  }
   runApp(
     MultiBlocProvider(
       providers: [
