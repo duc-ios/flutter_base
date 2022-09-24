@@ -8,7 +8,8 @@ This is a base Flutter project.
 
 Git commit prefixes:
 - `[alpha] [beta] [cr2]` - phrase
-- `[fix]` - fix mantis/issues ...
+- `[new]` - add new
+- `[fix]` - fix mantis tickets/issues/crashes ...
 - `[update]` - update old code
 - `[refactor]` - refactor code
 - `[docs]` - documents added
