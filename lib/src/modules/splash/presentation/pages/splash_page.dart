@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/getit_utils.dart';
-import '../../../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
+import '../../../../core/application/cubits/auth/auth_cubit.dart';
 import '../../../app/app_router.dart';
 
 class SplashPage extends StatelessWidget {

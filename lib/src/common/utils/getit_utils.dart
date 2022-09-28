@@ -1,7 +1,7 @@
 import 'package:get_it/get_it.dart';
 
-import '../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
-import '../../core/application/cubits/lang_cubit/lang_cubit.dart';
+import '../../core/application/cubits/auth/auth_cubit.dart';
+import '../../core/application/cubits/lang/lang_cubit.dart';
 import '../../core/infrastructure/datasources/remote/api/api_client.dart';
 import '../../core/infrastructure/datasources/remote/api/services/auth/auth_service.dart';
 import '../../core/infrastructure/repositories/lang_repository.dart';

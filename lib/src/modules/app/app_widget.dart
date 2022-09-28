@@ -6,7 +6,7 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import '../../../generated/l10n.dart';
 import '../../common/utils/app_theme.dart';
 import '../../common/utils/getit_utils.dart';
-import '../../core/application/cubits/lang_cubit/lang_cubit.dart';
+import '../../core/application/cubits/lang/lang_cubit.dart';
 import 'app_router.dart';
 
 class AppWidget extends StatelessWidget {

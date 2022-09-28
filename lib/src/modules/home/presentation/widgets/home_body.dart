@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/constants/constants.dart';
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../core/application/cubits/auth_cubit/auth/auth_cubit.dart';
+import '../../../../core/application/cubits/auth/auth_cubit.dart';
 import '../../../app/app_router.dart';
 
 class HomeBody extends StatelessWidget {
