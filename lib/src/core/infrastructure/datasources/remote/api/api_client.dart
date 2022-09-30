@@ -25,7 +25,7 @@ class ApiClient {
 
   ApiClient(this.baseUrl);
 
-  Future<Either<ApiError, ApiResponse<T>>> request<T>(
+  Future<Either<ApiError, DataApiResponse<T>>> request<T>(
     APIPath path,
     T Function(Object?) fromJsonT, {
     data,
@@ -53,17 +53,20 @@ class ApiClient {
         return left(
           ApiError.server(code: error['code'], message: error['message']),
         );
-      } else {
-        final data = response.data['data'];
-        if (data is List) {
+      } else if (response.data['data'] is List) {
+        if (response.data['page'] != null) {
           return right(
             ListApiResponse.fromJson(response.data, fromJsonT),
           );
         } else {
           return right(
-            SingleApiResponse.fromJson(response.data, fromJsonT),
+            ListApiResponse.fromJson(response.data, fromJsonT),
           );
         }
+      } else {
+        return right(
+          SingleApiResponse.fromJson(response.data, fromJsonT),
+        );
       }
     } on DioError catch (error) {
       final statusCode = error.response?.statusCode ?? -1;
@@ -85,7 +88,7 @@ class ApiClient {
   }
 }
 
-extension A<T> on Either<ApiError, ApiResponse<T>> {
+extension A<T> on Either<ApiError, DataApiResponse<T>> {
   Either<ApiError, T> get single => fold(
         (l) => left(l),
         (r) => (r.data is T)
@@ -99,6 +102,15 @@ extension A<T> on Either<ApiError, ApiResponse<T>> {
         (l) => left(l),
         (r) => (r.data is List<T>)
             ? right(r.data)
+            : left(
+                ApiError.unexpected(),
+              ),
+      );
+
+  Either<ApiError, PagingApiResponse<T>> get paging => fold(
+        (l) => left(l),
+        (r) => (r is PagingApiResponse<T>)
+            ? right(r)
             : left(
                 ApiError.unexpected(),
               ),
