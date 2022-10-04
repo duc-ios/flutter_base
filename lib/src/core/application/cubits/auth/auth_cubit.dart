@@ -1,9 +1,11 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../common/utils/validator.dart';
 import '../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
 import '../../../../modules/auth/infrastructure/models/user_model.dart';
 import '../../../domain/errors/auth_error.dart';
+import '../../../infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
@@ -22,13 +24,19 @@ class AuthCubit extends Cubit<AuthState> {
           }
         }());
 
-  Future<void> login({required String email, required String password}) async {
-    emit(const _Loading());
-    final result = await _repository.login(email: email, password: password);
-    emit(result.fold((l) => _Error(l), (r) {
-      _repository.setUser(r);
-      return _Authenticated(r);
-    }));
+  Future<void> login(LoginRequest request) async {
+    if (!Validator.isValidEmail(request.email)) {
+      emit(const _Error(AuthError.invalidEmail()));
+    } else if (!Validator.isValidPassword(request.password)) {
+      emit(const _Error(AuthError.invalidPassword()));
+    } else {
+      emit(const _Loading());
+      final result = await _repository.login(request);
+      emit(result.fold((l) => _Error(AuthError.other(l.message)), (r) {
+        _repository.setUser(r);
+        return _Authenticated(r);
+      }));
+    }
   }
 
   void logout() async {

@@ -1,11 +1,11 @@
-abstract class APIPath {
+abstract class ApiPath {
   final String method;
   final String path;
 
-  const APIPath(this.method, this.path);
+  const ApiPath(this.method, this.path);
 }
 
-class APIMethod {
+class ApiMethod {
   static const get = 'GET';
   static const post = 'POST';
   static const put = 'PUT';

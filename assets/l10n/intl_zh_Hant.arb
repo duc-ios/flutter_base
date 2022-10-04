@@ -4,6 +4,7 @@
     "email": "電子郵件",
     "password": "密碼",
     "error": "錯誤",
+    "error_network": "網絡錯誤！",
     "error_unexpected": "出問題了！",
     "error_unauthorized": "未經授權！",
     "error_invalid_email": "不合規電郵",

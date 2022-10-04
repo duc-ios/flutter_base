@@ -23,7 +23,7 @@ dependencies:
   json_annotation: ^4.7.0
   dio: ^4.0.6
   get_it: ^7.2.0
-  hive_flutter: ^1.1.0
+  shared_preferences: ^2.0.15
   flutter_secure_storage: ^6.0.0
   loggy: ^2.0.1
   meta: ^1.7.0

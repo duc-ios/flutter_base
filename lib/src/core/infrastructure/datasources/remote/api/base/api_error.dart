@@ -7,26 +7,24 @@ part 'api_error.g.dart';
 
 @freezed
 class ApiError with _$ApiError {
-  factory ApiError({required int? code, required String message}) = _ApiError;
-  factory ApiError.fromJson(Map<String, dynamic> json) =>
-      ApiError(code: json['code'], message: json['message']);
-
-  factory ApiError.network({required int? code, required String message}) =
-      _Network;
-  factory ApiError.server({required int? code, required String message}) =
-      _Server;
-  factory ApiError.internal({required String message}) = _Internal;
+  factory ApiError(int? code, String message) = _ApiError;
+  factory ApiError.server({int? code, required String message}) = _Server;
+  factory ApiError.network() = _Network;
+  factory ApiError.internal(String message) = _Internal;
+  factory ApiError.cancelled() = _Cancelled;
   factory ApiError.unexpected() = _Unexpected;
   factory ApiError.unauthorized() = _Unauthorized;
 
+  factory ApiError.fromJson(Map<String, dynamic> json) =>
+      _$ApiErrorFromJson(json);
+
   ApiError._();
 
-  String get message => when(
+  String get message => maybeWhen(
+        orElse: () => S.current.error_unexpected,
         (code, message) => message,
-        network: (code, message) => message,
         server: (code, message) => message,
+        network: () => S.current.error_network,
         internal: (message) => message,
-        unexpected: () => S.current.error_unexpected,
-        unauthorized: () => S.current.error_unauthorized,
       );
 }

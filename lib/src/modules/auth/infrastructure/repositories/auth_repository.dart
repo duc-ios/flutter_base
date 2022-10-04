@@ -1,18 +1,21 @@
 import 'package:dartz/dartz.dart';
 
 import '../../../../common/extensions/int_duration.dart';
-import '../../../../common/utils/validator.dart';
-import '../../../../core/domain/errors/auth_error.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
-import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_service.dart';
+import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
+import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
+import '../../../../core/infrastructure/datasources/remote/api/base/api_path.dart';
+import '../../../../core/infrastructure/datasources/remote/api/base/api_response.dart';
+import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_path.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
+import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_response.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
 import '../models/user_model.dart';
 
 class AuthRepository implements IAuthRepository {
-  final AuthService _service;
+  final ApiClient _client;
 
-  AuthRepository(this._service);
+  AuthRepository(this._client);
 
   @override
   UserModel? getUser() => Storage.user;
@@ -27,27 +30,24 @@ class AuthRepository implements IAuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Either<AuthError, UserModel>> login({
-    required String email,
-    required String password,
-  }) async {
-    if (!Validator.isValidEmail(email)) {
-      return left(const AuthError.invalidEmail());
-    } else if (!Validator.isValidPassword(password)) {
-      return left(const AuthError.invalidPassword());
-    } else {
-      final result =
-          await _service.login(LoginRequest(email: email, password: password));
-      return result.fold(
-        (failure) {
-          final errorMessage = failure.message;
-          return left(AuthError.other(errorMessage));
-        },
-        (data) {
-          return right(data.user);
-        },
-      );
-    }
+  Future<Either<ApiError, UserModel>> login(LoginRequest request) async {
+    final response = await _client.request(
+      path: AuthPath.login(request),
+      method: ApiMethod.get,
+      fromJsonT: (json) => SingleApiResponse<LoginResponse>.fromJson(
+          json, LoginResponse.fromJson),
+    );
+    return response.fold((l) => left(l), (r) => right(r.data.user));
+  }
+
+  Future<Either<ApiError, List<UserModel>>> getAllUsers() async {
+    final response = await _client.request(
+      path: AuthPath.user,
+      method: ApiMethod.get,
+      fromJsonT: (json) =>
+          ListApiResponse<UserModel>.fromJson(json, UserModel.fromJson),
+    );
+    return response.fold((l) => left(l), (r) => right(r.data));
   }
 
   @override

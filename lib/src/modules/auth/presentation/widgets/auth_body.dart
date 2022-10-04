@@ -7,6 +7,7 @@ import '../../../../../generated/assets.gen.dart';
 import '../../../../../generated/colors.gen.dart';
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../core/application/cubits/auth/auth_cubit.dart';
+import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
 class AuthBody extends StatefulWidget {
   const AuthBody({Key? key}) : super(key: key);
@@ -69,7 +70,7 @@ class _AuthBodyState extends State<AuthBody> {
                       controller: _passwordTextEditingController,
                       decoration: InputDecoration(
                         label: Text(context.s.password),
-                        hintText: 'aA123456@',
+                        hintText: 'aA12345@',
                         errorText: state.whenOrNull<String?>(
                           error: (error) => error.whenOrNull(
                             invalidPassword: () =>
@@ -108,7 +109,9 @@ class _AuthBodyState extends State<AuthBody> {
   void _login(BuildContext context) async {
     final email = _emailTextEditingController.text;
     final password = _passwordTextEditingController.text;
-    await context.read<AuthCubit>().login(email: email, password: password);
+    await context
+        .read<AuthCubit>()
+        .login(LoginRequest(email: email, password: password));
   }
 
   void _showError(String message) {

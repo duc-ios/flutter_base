@@ -4,6 +4,7 @@
     "email": "Email",
     "password": "Password",
     "error": "Error",
+    "error_network": "Network error!",
     "error_unexpected": "Something went wrong!",
     "error_unauthorized": "Unauthorized!",
     "error_invalid_email": "Invalid email",

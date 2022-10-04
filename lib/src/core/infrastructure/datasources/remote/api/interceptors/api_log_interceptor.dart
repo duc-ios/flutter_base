@@ -9,7 +9,7 @@ class ApiLogInterceptor extends InterceptorsWrapper {
 
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    final method = options.method.toUpperCase();
+    final method = options.method;
     logger.i('$method  ${options.uri}');
     logger.i('Headers: ${jsonEncoder.convert(options.headers)}');
     final data = options.data;
@@ -22,7 +22,8 @@ class ApiLogInterceptor extends InterceptorsWrapper {
       )}\n');
     } else {
       try {
-        logger.i('Data: ${jsonEncoder.convert(data)}\n');
+        final json = jsonEncoder.convert(data);
+        logger.i('Data: $json\n');
       } catch (error) {
         logger.i('Data: ${data.toString()}\n');
       }
@@ -34,9 +35,9 @@ class ApiLogInterceptor extends InterceptorsWrapper {
   void onResponse(Response response, ResponseInterceptorHandler handler) {
     logger.w(
         '''${response.requestOptions.method.toUpperCase()} ${response.requestOptions.uri} - ${response.statusCode}''');
-    final res = jsonEncoder.convert(response.data);
+    final json = jsonEncoder.convert(response.data);
     logger.w(
-        """Response: ${(res.length > 2500) ? "${res.substring(0, 2500)}..." : res}\n""");
+        """Response: ${(json.length > 2500) ? "${json.substring(0, 2500)}..." : json}\n""");
     return super.onResponse(response, handler);
   }
 
@@ -45,9 +46,9 @@ class ApiLogInterceptor extends InterceptorsWrapper {
     logger.e(
         '''${err.requestOptions.method.toUpperCase()} ${err.requestOptions.uri} - ${err.response?.statusCode}''');
     logger.e('Error: ${err.error}');
-    final res = jsonEncoder.convert(err.response?.data);
+    final json = jsonEncoder.convert(err.response?.data);
     logger.e(
-        """Response: ${(res.length > 2500) ? "${res.substring(0, 2500)}..." : res}\n""");
+        """Response: ${(json.length > 2500) ? "${json.substring(0, 2500)}..." : json}\n""");
     return super.onError(err, handler);
   }
 }

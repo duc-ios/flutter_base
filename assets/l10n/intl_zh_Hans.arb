@@ -4,6 +4,7 @@
     "email": "电子邮件",
     "password": "密码",
     "error": "错误",
+    "error_network": "网络错误！",
     "error_unexpected": "出问题了！",
     "error_unauthorized": "未经授权！",
     "error_invalid_email": "不合规电邮",

@@ -7,112 +7,69 @@ import 'base/api_path.dart';
 import 'base/api_response.dart';
 import 'interceptors/api_log_interceptor.dart';
 import 'interceptors/auth_interceptor.dart';
+import 'interceptors/error_interceptor.dart';
 
 class ApiClient {
   final String baseUrl;
 
-  late final Dio _dio = Dio(BaseOptions(
-    baseUrl: baseUrl,
-    headers: {
-      'lang': Storage.lang,
-      'device_id': Storage.deviceId,
-    },
-  ))
-    ..interceptors.addAll([
+  late final Dio _dio = Dio(
+    BaseOptions(
+      baseUrl: baseUrl,
+      headers: {'accept': 'application/json'},
+      queryParameters: {
+        'lang': Storage.lang,
+        'device_id': Storage.deviceId,
+      },
+    ),
+  )..interceptors.addAll([
       AuthInterceptor(),
       ApiLogInterceptor(),
+      ErrorInterceptor(),
     ]);
 
   ApiClient(this.baseUrl);
 
-  Future<Either<ApiError, DataApiResponse<T>>> request<T>(
-    APIPath path,
-    T Function(Object?) fromJsonT, {
-    data,
-    Options? options,
+  Future<Either<ApiError, T>> request<T>({
+    required String path,
+    required String method,
+    required T Function(Map<String, dynamic>) fromJsonT,
+    dynamic data,
     Map<String, dynamic>? queryParameters,
     CancelToken? cancelToken,
-    ProgressCallback? onSendProgress,
     ProgressCallback? onReceiveProgress,
+    ProgressCallback? onSendProgress,
   }) async {
-    try {
-      final response = await _dio.fetch(
-        (options ?? Options(method: path.method)).compose(
-          _dio.options,
-          path.path,
-          data: data,
-          queryParameters: queryParameters,
-          cancelToken: cancelToken,
-          onSendProgress: onSendProgress,
-          onReceiveProgress: onReceiveProgress,
-        ),
-      );
+    final options = Options(method: method).compose(
+      _dio.options,
+      path,
+      queryParameters: queryParameters,
+      cancelToken: cancelToken,
+      onReceiveProgress: onReceiveProgress,
+      onSendProgress: onSendProgress,
+      data: data,
+    );
 
-      final error = response.data['error'];
-      if (error != null) {
-        return left(
-          ApiError.server(code: error['code'], message: error['message']),
-        );
-      } else if (response.data['data'] is List) {
-        if (response.data['page'] != null) {
-          return right(
-            ListApiResponse.fromJson(response.data, fromJsonT),
-          );
-        } else {
-          return right(
-            ListApiResponse.fromJson(response.data, fromJsonT),
-          );
-        }
+    if (data is FormData) {
+      options.data = data;
+    } else if (data != null) {
+      if (data is Map<String, dynamic> && options.method == ApiMethod.get) {
+        final query = Map<String, dynamic>.from(options.queryParameters);
+        query.addAll(Map<String, dynamic>.from(data));
+        options.queryParameters = query;
       } else {
-        return right(
-          SingleApiResponse.fromJson(response.data, fromJsonT),
-        );
+        options.data = data;
       }
-    } on DioError catch (error) {
-      final statusCode = error.response?.statusCode ?? -1;
-      if (statusCode == 401) {
-        return left(
-          ApiError.unauthorized(),
-        );
-      } else {
-        return left(
-          ApiError.network(
-              code: error.response?.statusCode, message: error.message),
-        );
-      }
-    } catch (error) {
-      return left(
-        ApiError.internal(message: error.toString()),
+    }
+    try {
+      final response = await _dio.fetch(options);
+      return right(
+        ResponseWrapper.init(fromJsonT: fromJsonT, data: response.data)
+            .response,
       );
+    } on DioError catch (err) {
+      return left(err.error);
+    } catch (error) {
+      return left(ApiError.internal(error.toString()));
     }
   }
-}
-
-extension A<T> on Either<ApiError, DataApiResponse<T>> {
-  Either<ApiError, T> get single => fold(
-        (l) => left(l),
-        (r) => (r.data is T)
-            ? right(r.data)
-            : left(
-                ApiError.unexpected(),
-              ),
-      );
-
-  Either<ApiError, List<T>> get list => fold(
-        (l) => left(l),
-        (r) => (r.data is List<T>)
-            ? right(r.data)
-            : left(
-                ApiError.unexpected(),
-              ),
-      );
-
-  Either<ApiError, PagingApiResponse<T>> get paging => fold(
-        (l) => left(l),
-        (r) => (r is PagingApiResponse<T>)
-            ? right(r)
-            : left(
-                ApiError.unexpected(),
-              ),
-      );
 }
