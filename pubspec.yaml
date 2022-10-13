@@ -54,6 +54,15 @@ flutter:
   assets:
     - assets/images/
     - assets/icons/
+  fonts:
+    - family: Roboto
+      fonts:
+        - asset: assets/fonts/Roboto/Roboto-Regular.ttf
+        - asset: assets/fonts/Roboto/Roboto-Italic.ttf
+        - asset: assets/fonts/Roboto/Roboto-Medium.ttf
+        - asset: assets/fonts/Roboto/Roboto-MediumItalic.ttf
+        - asset: assets/fonts/Roboto/Roboto-Bold.ttf
+        - asset: assets/fonts/Roboto/Roboto-BoldItalic.ttf
 
 flutter_gen:
   output: lib/generated/
