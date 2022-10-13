@@ -4,6 +4,16 @@ extension AsExtension on Object? {
     var self = this;
     return self is X ? self : null;
   }
+
+  bool get isNullOrEmpty {
+    final object = this;
+    if (object is String) {
+      return object.trim().isEmpty;
+    } else if (object is List) {
+      return object.isEmpty;
+    }
+    return object == null;
+  }
 }
 
 extension AsSubtypeExtension<X> on X {

@@ -1,22 +1,16 @@
 class Constants {
-  static const elevation = 0.0;
-  static const buttonHeight = 50.0;
-  static const nearSpacing = 4.0;
-  static const spacing = 8.0;
-  static const nearPadding = 12.0;
-  static const padding = 16.0;
-  static const farPadding = 24.0;
-  static const superFarPadding = 32.0;
-  static const borderRadius = 3.0;
-  static const cardRadius = 10.0;
   static const toastDuration = 3;
 }
 
-bool isNullOrEmpty(dynamic object) {
-  if (object is String) {
-    return object.isEmpty;
-  } else if (object is List) {
-    return object.isEmpty;
-  }
-  return true;
+class Ratio {
+  static const wave = 166 / 428;
+  static const imgStep1 = 429 / 314;
+  static const imgStep2 = 428 / 335;
+}
+
+class Dimen {
+  static const d8 = 8.0;
+  static const d16 = 16.0;
+  static const d25 = 25.0;
+  static const d32 = 32.0;
 }

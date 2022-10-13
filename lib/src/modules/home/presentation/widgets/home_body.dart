@@ -27,7 +27,7 @@ class HomeBody extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(height: Constants.spacing),
+          const SizedBox(height: Dimen.d8),
           BlocBuilder<AuthCubit, AuthState>(
             builder: (context, state) => state.maybeWhen(
                 orElse: () => Text(context.s.error_unexpected),
@@ -35,12 +35,12 @@ class HomeBody extends StatelessWidget {
                     textAlign: TextAlign.center,
                     style: context.textTheme.headline4)),
           ),
-          const SizedBox(height: Constants.superFarPadding),
+          const SizedBox(height: Dimen.d32),
           ElevatedButton(
             onPressed: () => context.router.push(const CounterRoute()),
             child: Text(context.s.counter),
           ),
-          const SizedBox(height: Constants.padding),
+          const SizedBox(height: Dimen.d16),
           ElevatedButton(
             onPressed: () => context.router.push(const SettingsRoute()),
             child: Text(context.s.settings),
