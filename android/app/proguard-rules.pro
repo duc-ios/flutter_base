@@ -1,1 +1,1 @@
--keep class ios.duc.flutter_bar.BuildConfig { *; }
+-keep class ios.duc.flutter_base.BuildConfig { *; }
