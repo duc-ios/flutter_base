@@ -72,9 +72,10 @@ flutter_gen:
     rive: false
 
   assets:
-    enabled: true
-    package_parameter_enabled: false
-    style: dot-delimiter
+    output:
+      enabled: true
+      package_parameter_enabled: false
+      style: dot-delimiter
 
   fonts:
     enabled: true
