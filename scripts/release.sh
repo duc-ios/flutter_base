@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 
 printf "Select flavor to build\n"
-select flavor in "dev" "prg" "uat" "prd"; do
+select flavor in "alpha" "dev" "prg" "uat" "prd"; do
   echo "Selected flavor: #$flavor"
 
   export_method=enterprise
@@ -38,7 +38,7 @@ select flavor in "dev" "prg" "uat" "prd"; do
   fi
 
   mv build/ios/ipa/$app_name.ipa $ipa_path
-    
+
   if [ $export_method == "app-store" ]
   then
     sh scripts/tf.sh $flavor

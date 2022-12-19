@@ -13,21 +13,18 @@ import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
 import '../models/user_model.dart';
 
-@LazySingleton(as: IAuthRepository, env: AppEnvironment.environments)
-class AuthRepository implements IAuthRepository {
+@alpha
+@LazySingleton(as: IAuthRepository)
+class AuthRepositoryMockupImpl implements IAuthRepository {
   final AuthClient _client;
 
-  AuthRepository(this._client);
+  AuthRepositoryMockupImpl(this._client);
 
   @override
-  UserModel? getUser() => Storage.user;
+  User? getUser() => Storage.user;
 
   @override
-  Future setUser(User? val) async {
-    if (val is UserModel?) {
-      return Storage.setUser(val);
-    }
-  }
+  Future setUser(User? val) async => Storage.setUser(val);
 
   @override
   Future<String?> getAccessToken() => Storage.accessToken;
@@ -37,16 +34,16 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<UserModel, ApiError>> login(
-    LoginRequest request, {
-    CancelToken? token,
-  }) async {
+      LoginRequest request, {
+        CancelToken? token,
+      }) async {
     var result = await _client.loginFailed(token).result();
     if (request.password == 'aA12345@') {
       result = await _client.login(request, token).result();
     }
     return result.fold(
-      (success) => Success(success.data.user),
-      (failure) => Failure(failure),
+          (success) => Success(success.data.user),
+          (failure) => Failure(failure),
     );
   }
 
@@ -60,8 +57,8 @@ class AuthRepository implements IAuthRepository {
   Future<Result<List<UserModel>, ApiError>> users({CancelToken? token}) async {
     final result = (await _client.users(token).result());
     return result.fold(
-      (success) => Success(success.data),
-      (failure) => Failure(failure),
+          (success) => Success(success.data),
+          (failure) => Failure(failure),
     );
   }
 
@@ -70,8 +67,8 @@ class AuthRepository implements IAuthRepository {
       {CancelToken? token}) async {
     final result = await _client.user(id, token).result();
     return result.fold(
-      (success) => Success(success.data),
-      (failure) => Failure(failure),
+          (success) => Success(success.data),
+          (failure) => Failure(failure),
     );
   }
 }

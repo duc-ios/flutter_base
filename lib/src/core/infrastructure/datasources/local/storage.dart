@@ -7,6 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../common/extensions/optional_x.dart';
 import '../../../../common/utils/logger.dart';
+import '../../../../modules/auth/domain/entities/user.dart';
 import '../../../../modules/auth/infrastructure/models/user_model.dart';
 
 class _Keys {
@@ -92,7 +93,7 @@ class Storage {
     return null;
   }
 
-  static Future<void> setUser(UserModel? val) =>
+  static Future<void> setUser(User? val) =>
       _set(_Keys.user, json.encode(val?.toJson()));
 
   static Future<String?> get accessToken => _getSecure(_Keys.accessToken);

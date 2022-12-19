@@ -11,7 +11,7 @@ abstract class IAuthRepository {
   Future<String?> getAccessToken();
   Future setAccessToken(String? val);
   Future<Result<User, ApiError>> login(
-    LoginRequest requestm, {
+    LoginRequest request, {
     CancelToken? token,
   });
   Future logout({CancelToken? token});

@@ -4,6 +4,7 @@ import 'package:result_dart/result_dart.dart';
 import 'api_error.dart';
 
 part 'api_response.freezed.dart';
+
 part 'api_response.g.dart';
 
 abstract class GenericObject<T> {
@@ -21,9 +22,10 @@ class ResponseWrapper<T> extends GenericObject<T> {
 
   ResponseWrapper(super.fromJsonT);
 
-  factory ResponseWrapper.init(
-      {required T Function(Map<String, dynamic>) fromJsonT,
-      required dynamic data}) {
+  factory ResponseWrapper.init({
+    required T Function(Map<String, dynamic>) fromJsonT,
+    required dynamic data,
+  }) {
     final wrapper = ResponseWrapper<T>(fromJsonT);
     wrapper.response = wrapper.genericObject(data);
     return wrapper;
@@ -35,8 +37,9 @@ class SingleApiResponse<T> with _$SingleApiResponse<T> {
   const factory SingleApiResponse(T data) = _SingleApiResponse;
 
   factory SingleApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$SingleApiResponseFromJson(json, fromJsonT);
+    Map<String, dynamic> json,
+    T Function(Object?) fromJsonT,
+  ) => _$SingleApiResponseFromJson(json, fromJsonT);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -44,8 +47,9 @@ class ListApiResponse<T> with _$ListApiResponse<T> {
   const factory ListApiResponse(List<T> data) = _ListApiResponse;
 
   factory ListApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$ListApiResponseFromJson(json, fromJsonT);
+      Map<String, dynamic> json,
+      T Function(Object?) fromJsonT,
+  ) => _$ListApiResponseFromJson(json, fromJsonT);
 }
 
 @Freezed(genericArgumentFactories: true)
@@ -56,9 +60,10 @@ class PagingApiResponse<T> with _$PagingApiResponse<T> {
     required int total,
   }) = _PagingApiResponse;
 
-  factory PagingApiResponse.fromJson(
-          Map<String, dynamic> json, T Function(Object?) fromJsonT) =>
-      _$PagingApiResponseFromJson(json, fromJsonT);
+  factory PagingApiResponse.fromJson({
+    required Map<String, dynamic> json,
+    required T Function(Object?) fromJsonT,
+  }) => _$PagingApiResponseFromJson(json, fromJsonT);
 }
 
 extension FoldedSingleApiResponse<T extends Object>
