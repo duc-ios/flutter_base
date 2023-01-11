@@ -2,6 +2,11 @@
 
 Base Flutter Project.
 
+## Using
+`dart pub global activate use_template`
+
+`use_template {{name}} https://github.com/duc-ios/flutter_base` 
+
 ## Conventional commits
 ### Example:
 - `feat: new feature`
