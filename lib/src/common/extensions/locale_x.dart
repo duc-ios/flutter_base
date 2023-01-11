@@ -17,6 +17,20 @@ extension LocaleX on Locale {
     }
   }
 
+  String get apiKey {
+    final languageName = toString();
+    switch (languageName) {
+      case 'en':
+        return 'en';
+      case 'zh_Hans':
+        return 'zh-cn';
+      case 'zh_Hant':
+        return 'zh-hk';
+      default:
+        return 'en';
+    }
+  }
+
   String get fullLanguageCode =>
       [languageCode, scriptCode].where((element) => element != null).join('_');
 

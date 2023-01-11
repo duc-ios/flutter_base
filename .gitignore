@@ -64,6 +64,7 @@ lib/generated/
 *.freezed.dart
 *.g.dart
 *.gr.dart
+*.config.dart
 
 # Android related
 **/android/**/gradle-wrapper.jar

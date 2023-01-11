@@ -1,4 +1,5 @@
 import 'package:dartz/dartz.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
@@ -12,6 +13,7 @@ import '../../../../core/infrastructure/datasources/remote/api/services/auth/mod
 import '../../domain/interfaces/auth_repository_interface.dart';
 import '../models/user_model.dart';
 
+@LazySingleton(as: IAuthRepository)
 class AuthRepository implements IAuthRepository {
   final ApiClient _client;
 

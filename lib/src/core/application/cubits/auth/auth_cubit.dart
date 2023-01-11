@@ -1,5 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../../../common/utils/validator.dart';
 import '../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
@@ -10,6 +11,7 @@ import '../../../infrastructure/datasources/remote/api/services/auth/models/logi
 part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
 
+@singleton
 class AuthCubit extends Cubit<AuthState> {
   final IAuthRepository _repository;
 

@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/widgets.dart';
+import 'package:injectable/injectable.dart';
 
 import '../../modules/about/presentation/pages/about_page.dart';
 import '../../modules/auth/presentation/pages/auth_page.dart';
@@ -23,4 +24,5 @@ part 'app_router.gr.dart';
     AutoRoute(page: SupportivePage),
   ],
 )
+@singleton
 class AppRouter extends _$AppRouter {}

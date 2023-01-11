@@ -1,6 +1,11 @@
 import 'package:dartz/dartz.dart';
 import 'package:dio/dio.dart';
+import 'package:injectable/injectable.dart';
 
+import '../../../../../common/extensions/locale_x.dart';
+import '../../../../../common/utils/app_environment.dart';
+import '../../../../../common/utils/getit_utils.dart';
+import '../../../../domain/interfaces/lang_repository_interface.dart';
 import '../../local/storage.dart';
 import 'base/api_error.dart';
 import 'base/api_path.dart';
@@ -9,25 +14,32 @@ import 'interceptors/api_log_interceptor.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/error_interceptor.dart';
 
+@module
+abstract class ApiModule {
+  @Named('baseUrl')
+  String get baseUrl => AppEnvironment.apiUrl;
+
+  @singleton
+  Dio dio(@Named('baseUrl') String url, ILangRepository repo) => Dio(
+        BaseOptions(
+          baseUrl: url,
+          headers: {'accept': 'application/json'},
+          queryParameters: {
+            'device_id': Storage.deviceId,
+          },
+        ),
+      )..interceptors.addAll([
+          AuthInterceptor(),
+          ApiLogInterceptor(),
+          ErrorInterceptor(),
+        ]);
+}
+
+@singleton
 class ApiClient {
-  final String baseUrl;
+  final Dio _dio;
 
-  late final Dio _dio = Dio(
-    BaseOptions(
-      baseUrl: baseUrl,
-      headers: {'accept': 'application/json'},
-      queryParameters: {
-        'lang': Storage.lang,
-        'device_id': Storage.deviceId,
-      },
-    ),
-  )..interceptors.addAll([
-      AuthInterceptor(),
-      ApiLogInterceptor(),
-      ErrorInterceptor(),
-    ]);
-
-  ApiClient(this.baseUrl);
+  ApiClient(this._dio);
 
   Future<Either<ApiError, T>> request<T>({
     required String path,
@@ -42,7 +54,10 @@ class ApiClient {
     final options = Options(method: method).compose(
       _dio.options,
       path,
-      queryParameters: queryParameters,
+      queryParameters: {
+        'lang': getIt<ILangRepository>().getLocale().apiKey,
+        ...?queryParameters
+      },
       cancelToken: cancelToken,
       onReceiveProgress: onReceiveProgress,
       onSendProgress: onSendProgress,
