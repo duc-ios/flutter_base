@@ -83,7 +83,7 @@ Amet cupidatat dolore fugiat esse. Et occaecat ullamco id amet Lorem in dolore f
                 if (version != null && buildNumber != null) {
                   return Text(
                     context.s.version_x('$version($buildNumber)'),
-                    style: context.textTheme.caption,
+                    style: context.textTheme.bodySmall,
                   );
                 }
                 return const SizedBox();

@@ -32,8 +32,8 @@ class CounterBody extends StatelessWidget {
                 builder: (_, state) {
                   return state.whenOrNull(
                         loading: () => const CircularProgressIndicator(),
-                        value: (value) =>
-                            Text('value: $value', style: textTheme.headline2),
+                        value: (value) => Text('value: $value',
+                            style: textTheme.displayMedium),
                       ) ??
                       const SizedBox();
                 }),
@@ -43,7 +43,7 @@ class CounterBody extends StatelessWidget {
                 builder: (_, state) {
                   return state.whenOrNull(
                         value: (value) =>
-                            Text('tap: $value', style: textTheme.headline2),
+                            Text('tap: $value', style: textTheme.displayMedium),
                       ) ??
                       const SizedBox();
                 })
@@ -88,7 +88,7 @@ class CounterBody extends StatelessWidget {
           message,
           style: Theme.of(context)
               .textTheme
-              .bodyText1
+              .bodyLarge
               ?.copyWith(color: Colors.white),
         ),
       ),
