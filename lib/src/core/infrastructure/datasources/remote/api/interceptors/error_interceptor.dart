@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+import '../../../../../../../generated/l10n.dart';
 import '../../../../../../common/utils/getit_utils.dart';
 import '../../../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
 import '../base/api_error.dart';
@@ -19,27 +20,28 @@ class ErrorInterceptor extends InterceptorsWrapper {
 
   @override
   void onError(DioError err, ErrorInterceptorHandler handler) {
-    if (err.error is ApiError) {
+    var error = err.error;
+    if (error is ApiError) {
       return super.onError(err, handler);
     }
 
     if (err.type == DioErrorType.cancel) {
-      err.error = ApiError.cancelled();
+      error = ApiError.cancelled();
     } else {
       final statusCode = err.response?.statusCode ?? -1;
       if (statusCode == 401) {
         getIt<IAuthRepository>().logout();
-        err.error = ApiError.unauthorized();
+        error = ApiError.unauthorized();
       } else if (statusCode >= 400 && statusCode < 500) {
-        err.error = ApiError.server(
+        error = ApiError.server(
           code: statusCode,
-          message: err.message,
+          message: err.message ?? S.current.error_unexpected,
         );
       } else {
-        err.error = ApiError.network();
+        error = ApiError.network();
       }
     }
 
-    super.onError(err, handler);
+    super.onError(err.copyWith(error: error), handler);
   }
 }

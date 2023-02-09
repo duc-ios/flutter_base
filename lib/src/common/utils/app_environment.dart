@@ -6,7 +6,8 @@ class AppEnvironment {
   }
 
   static final flavor = FlutterConfig.get('FLAVOR');
-  static final appID = FlutterConfig.get('APP_ID');
+  static final packageName = FlutterConfig.get('PACKAGE_NAME');
+  static final bundleId = FlutterConfig.get('BUNDLE_ID');
   static final apiUrl = FlutterConfig.get('API_URL');
   static final appName = FlutterConfig.get('APP_NAME');
 }

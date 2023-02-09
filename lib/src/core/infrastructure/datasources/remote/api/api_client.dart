@@ -3,6 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../common/extensions/locale_x.dart';
+import '../../../../../common/extensions/null_x.dart';
 import '../../../../../common/utils/app_environment.dart';
 import '../../../../../common/utils/getit_utils.dart';
 import '../../../../domain/interfaces/lang_repository_interface.dart';
@@ -82,7 +83,7 @@ class ApiClient {
             .response,
       );
     } on DioError catch (err) {
-      return left(err.error);
+      return left(err.error.asOrNull() ?? ApiError.unexpected());
     } catch (error) {
       return left(ApiError.internal(error.toString()));
     }
