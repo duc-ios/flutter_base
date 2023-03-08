@@ -31,7 +31,7 @@ project.ext.envConfigFiles = [
         uat : ".env.uat",
         prd : ".env.prd",
 ]
-apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
+apply from: project(':flutter_config_plus').projectDir.getPath() + "/dotenv.gradle"
 
 android {
     compileSdkVersion 33 // flutter.compileSdkVersion
