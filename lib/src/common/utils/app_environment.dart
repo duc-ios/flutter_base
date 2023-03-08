@@ -1,4 +1,6 @@
-import 'package:flutter_config/flutter_config.dart';
+import 'package:flutter_config_plus/flutter_config_plus.dart';
+
+typedef FlutterConfig = FlutterConfigPlus;
 
 class AppEnvironment {
   static setup() async {
