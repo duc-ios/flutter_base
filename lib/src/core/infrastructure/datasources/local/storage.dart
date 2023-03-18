@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:streaming_shared_preferences/streaming_shared_preferences.dart';
 import 'package:uuid/uuid.dart';
 
 import '../../../../common/extensions/optional_x.dart';
@@ -18,31 +19,69 @@ class _Keys {
 
 class Storage {
   static late final SharedPreferences _prefs;
+  static late final StreamingSharedPreferences _streamPrefs;
+
   static const _storage = FlutterSecureStorage();
 
   static setup() async {
     _prefs = await SharedPreferences.getInstance();
+    _streamPrefs = await StreamingSharedPreferences.instance;
   }
 
   static T? _get<T>(String key) => _prefs.get(key).asOrNull<T>();
-  static Future<void> _set<T>(String key, T? val) {
+
+  static Preference<bool> _streamBool(String key, bool defaultValue) {
+    return _streamPrefs.getBool(key, defaultValue: defaultValue);
+  }
+
+  static Preference<int> _streamInt(String key, int defaultValue) {
+    return _streamPrefs.getInt(key, defaultValue: defaultValue);
+  }
+
+  static Preference<String> _streamString(String key, String defaultValue) {
+    return _streamPrefs.getString(key, defaultValue: defaultValue);
+  }
+
+  static Preference<double> _streamDouble(String key, double defaultValue) {
+    return _streamPrefs.getDouble(key, defaultValue: defaultValue);
+  }
+
+  static Preference<T> _streamObject<T>(String key, T defaultValue,
+      {required PreferenceAdapter<T> adapter}) {
+    return _streamPrefs.getCustomValue(key,
+        defaultValue: defaultValue, adapter: adapter);
+  }
+
+  static Preference<List<String>> _streamStringList(
+      String key, List<String> defaultValue) {
+    return _streamPrefs.getStringList(key, defaultValue: defaultValue);
+  }
+
+  static Future<void> _set<T>(String key, T? val, {bool notify = false}) {
     if (val is bool) {
-      return _prefs.setBool(key, val);
+      return notify ? _streamPrefs.setBool(key, val) : _prefs.setBool(key, val);
     }
     if (val is double) {
-      return _prefs.setDouble(key, val);
+      return notify
+          ? _streamPrefs.setDouble(key, val)
+          : _prefs.setDouble(key, val);
     }
     if (val is int) {
-      return _prefs.setInt(key, val);
+      return notify ? _streamPrefs.setInt(key, val) : _prefs.setInt(key, val);
     }
     if (val is String) {
-      return _prefs.setString(key, val);
+      return notify
+          ? _streamPrefs.setString(key, val)
+          : _prefs.setString(key, val);
     }
     if (val is List<String>) {
-      return _prefs.setStringList(key, val);
+      return notify
+          ? _streamPrefs.setStringList(key, val)
+          : _prefs.setStringList(key, val);
     }
     throw Exception('Type not supported!');
   }
+
 
   static Future<String?> _getSecure(String key) => _storage.read(key: key);
   static Future<void> _setSecure(String key, String? val) =>
