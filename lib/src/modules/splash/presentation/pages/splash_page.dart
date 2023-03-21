@@ -1,3 +1,4 @@
+import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 
 import '../../../../common/extensions/int_duration.dart';
@@ -5,6 +6,7 @@ import '../../../../common/utils/getit_utils.dart';
 import '../../../../core/application/cubits/auth/auth_cubit.dart';
 import '../../../app/app_router.dart';
 
+@RoutePage()
 class SplashPage extends StatelessWidget {
   SplashPage({Key? key}) : super(key: key) {
     fetchAll();

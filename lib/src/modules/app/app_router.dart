@@ -12,17 +12,17 @@ import '../supportive/presentation/pages/supportive_page.dart';
 
 part 'app_router.gr.dart';
 
-@MaterialAutoRouter(
-  replaceInRouteName: 'Page,Route',
-  routes: <AutoRoute>[
-    AutoRoute(page: SplashPage, initial: true),
-    AutoRoute(page: HomePage),
-    AutoRoute(page: AuthPage),
-    AutoRoute(page: CounterPage),
-    AutoRoute(page: AboutPage),
-    AutoRoute(page: SettingsPage),
-    AutoRoute(page: SupportivePage),
-  ],
-)
 @singleton
-class AppRouter extends _$AppRouter {}
+@AutoRouterConfig(replaceInRouteName: 'Page,Route')
+class AppRouter extends _$AppRouter {
+  @override
+  List<AutoRoute> get routes => [
+    AutoRoute(page: SplashRoute.page, path: '/'),
+    AutoRoute(page: HomeRoute.page),
+    AutoRoute(page: AuthRoute.page),
+    AutoRoute(page: CounterRoute.page),
+    AutoRoute(page: AboutRoute.page),
+    AutoRoute(page: SettingsRoute.page),
+    AutoRoute(page: SupportiveRoute.page),
+  ];
+}
