@@ -13,7 +13,7 @@ dependencies:
     sdk: flutter
   intl: ^0.17.0
   asuka: ^2.0.0
-  auto_route: ^5.0.0
+  auto_route: ^6.0.0+1
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
   flutter_config_plus: ^1.1.1
@@ -46,7 +46,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.1.0
   json_serializable: ^6.4.0
-  auto_route_generator: ^5.0.0
+  auto_route_generator: ^6.0.0
   flutter_gen_runner: ^5.0.1
   intl_utils: ^2.7.0
   injectable_generator: ^2.1.3
