@@ -15,7 +15,7 @@ select flavor in "DEV" "PRG" "UAT" "PRD"; do
   app_name=$(grep -m 1 'name: ' pubspec.yaml | head -1 | sed 's/name: //')
   version=$(grep 'version: ' pubspec.yaml | sed 's/version: //' | sed 's/+/_/')
   file_name="${app_name}_${flavor}_${version}"
-  echo "Peparing build: $file_name"
+  echo "Preparing build: $file_name"
 
   # Generate assets
   flutter pub get
