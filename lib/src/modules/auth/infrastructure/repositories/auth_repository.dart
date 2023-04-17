@@ -10,6 +10,7 @@ import '../../../../core/infrastructure/datasources/remote/api/base/api_response
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_path.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_response.dart';
+import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository_interface.dart';
 import '../models/user_model.dart';
 
@@ -23,7 +24,11 @@ class AuthRepository implements IAuthRepository {
   UserModel? getUser() => Storage.user;
 
   @override
-  Future setUser(UserModel? val) async => Storage.setUser(val);
+  Future setUser(User? val) async {
+    if (val is UserModel?) {
+      return Storage.setUser(val);
+    }
+  }
 
   @override
   Future<String?> getAccessToken() => Storage.accessToken;

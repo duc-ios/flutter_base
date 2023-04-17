@@ -3,8 +3,8 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/utils/validator.dart';
+import '../../../../modules/auth/domain/entities/user.dart';
 import '../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
-import '../../../../modules/auth/infrastructure/models/user_model.dart';
 import '../../../domain/errors/auth_error.dart';
 import '../../../infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
