@@ -37,7 +37,7 @@ class Storage {
 
   static T? _get<T>(String key) => _prefs.get(key).asOrNull<T>();
 
-  /// set value to shared preference by [key[.
+  /// set value to shared preference by [key].
   /// If you want the updated value to be notified for stream subscriptions
   /// created by [RxSharedPreferences], please set [notify] as `true`
   static Future<void> _set<T>(String key, T? val, {bool notify = false}) {
