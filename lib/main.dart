@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'src/common/extensions/locale_x.dart';
 import 'src/common/utils/app_environment.dart';
+import 'src/common/utils/app_network.dart';
 import 'src/common/utils/getit_utils.dart';
 import 'src/common/utils/global_bloc_observer.dart';
 import 'src/common/utils/logger.dart';
@@ -19,6 +20,7 @@ void main() async {
 
   await AppEnvironment.setup();
   await Storage.setup();
+  await AppNetwork.setup();
   configureDependencies();
 
   final langRepository = getIt<ILangRepository>();
