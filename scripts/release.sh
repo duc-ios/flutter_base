@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 printf "Select flavor to build\n"
-select flavor in "DEV" "PRG" "UAT" "PRD"; do
+select flavor in "dev" "prg" "uat" "prd"; do
   echo "Selected flavor: #$flavor"
 
   export_method=enterprise
   case $flavor in
-  "PRD") export_method=app-store ;;
+  "prd") export_method=app-store ;;
   esac
   echo "export_method: $export_method"
 
@@ -23,14 +23,28 @@ select flavor in "DEV" "PRG" "UAT" "PRD"; do
   sh scripts/generate_assets.sh
 
   # Build and open apk
+  apk_path="build/app/outputs/flutter-apk/${file_name}.apk"
   flutter build apk --flavor $flavor &&
-    mv build/app/outputs/flutter-apk/app.apk build/app/outputs/flutter-apk/${file_name}.apk &&
+    mv "build/app/outputs/flutter-apk/app-${flavor}-release.apk" $apk_path &&
     open build/app/outputs/flutter-apk
 
   # Build and open ipa
-  flutter build ipa --export-method $export_method --flavor $flavor &&
-    mv build/ios/ipa/$app_name.ipa build/ios/ipa/${file_name}.ipa &&
+  ipa_path="build/ios/ipa/${file_name}.ipa"
+  if [ $flavor == "prd" ]
+  then
+    flutter build ipa --release --export-options-plist scripts/export.plist --flavor $flavor
+  else
+    flutter build ipa --release --export-method $export_method --flavor $flavor
+  fi
+
+  mv build/ios/ipa/$app_name.ipa $ipa_path
+    
+  if [ $export_method == "app-store" ]
+  then
+    sh scripts/tf.sh $flavor
+  else
     open build/ios/ipa
+  fi
 
   # Commit and tag this change.
   git add .
