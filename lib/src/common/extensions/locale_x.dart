@@ -34,7 +34,7 @@ extension LocaleX on Locale {
   String get fullLanguageCode =>
       [languageCode, scriptCode].where((element) => element != null).join('_');
 
-  bool isItemSelected(Locale compare) {
+  bool isEqualTo(Locale compare) {
     if (this == compare) {
       return true;
     }
@@ -64,7 +64,7 @@ extension StringLocale on String {
   Locale get toLocale {
     final components = split('_');
     if (components.length >= 2 && components[0] == 'zh') {
-      return _getPizzaPlatformLanguage(components);
+      return _getPlatformLanguage(components);
     } else if (components.isNotEmpty) {
       return Locale(components[0]);
     } else {
@@ -72,7 +72,7 @@ extension StringLocale on String {
     }
   }
 
-  Locale _getPizzaPlatformLanguage(List<String> components) {
+  Locale _getPlatformLanguage(List<String> components) {
     if (ZHStringSupport.zhTraditionalString.contains(this)) {
       return const Locale.fromSubtags(languageCode: 'zh', scriptCode: 'Hant');
     }
