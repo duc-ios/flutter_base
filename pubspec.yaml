@@ -11,9 +11,9 @@ dependencies:
     sdk: flutter
   flutter_localizations:
     sdk: flutter
-  intl: ^0.17.0
+  intl: ^0.18.0
   asuka: ^2.0.0
-  auto_route: ^6.0.0+1
+  auto_route: ^7.4.0
   bloc: ^8.0.3
   flutter_bloc: ^8.0.1
   flutter_config_plus: ^1.1.1
@@ -27,7 +27,7 @@ dependencies:
   flutter_secure_storage: ^8.0.0
   loggy: ^2.0.1
   meta: ^1.7.0
-  package_info_plus: ^3.0.3
+  package_info_plus: ^4.0.2
   rxdart: ^0.27.4
   dartz: ^0.10.1
   uuid: ^3.0.6
@@ -35,6 +35,7 @@ dependencies:
   injectable: ^2.1.0
   rx_shared_preferences: ^3.0.0
   collection: ^1.17.0
+  dartx: ^1.1.0
 
 dev_dependencies:
   flutter_lints: ^2.0.0
@@ -47,7 +48,7 @@ dev_dependencies:
     sdk: flutter
   freezed: ^2.1.0
   json_serializable: ^6.4.0
-  auto_route_generator: ^6.0.0
+  auto_route_generator: ^7.1.1
   flutter_gen_runner: ^5.3.0
   intl_utils: ^2.7.0
   injectable_generator: ^2.1.3
