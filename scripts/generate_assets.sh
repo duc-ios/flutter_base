@@ -1,3 +1,4 @@
+sh scripts/webp.sh
 if which fluttergen >/dev/null; then
   fluttergen
 else
