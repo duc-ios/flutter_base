@@ -3,7 +3,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../../common/extensions/locale_x.dart';
-import '../../../../../common/extensions/null_x.dart';
+import '../../../../../common/extensions/optional_x.dart';
 import '../../../../../common/utils/app_environment.dart';
 import '../../../../../common/utils/getit_utils.dart';
 import '../../../../domain/interfaces/lang_repository_interface.dart';

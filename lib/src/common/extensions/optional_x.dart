@@ -1,3 +1,26 @@
+import 'package:dartx/dartx.dart';
+
+T? cast<T>(x) => x is T ? x : null;
+
+extension OptionalObject on Object? {
+  bool get isNull => this == null;
+  bool get isNotNull => this != null;
+}
+
+extension OptionalString on String? {
+  bool get isNullOrBlank => this == null || this!.isBlank;
+
+  bool get isNotNullOrBlank => !isNullOrBlank;
+}
+
+extension OptionalList on String? {
+  bool get isNullOrEmpty => this == null || this!.isEmpty;
+}
+
+extension ListX on List {
+  T? firstOrNull<T>() => isEmpty ? null : first;
+}
+
 extension AsExtension on Object? {
   X as<X>() => this as X;
   X? asOrNull<X>() {
@@ -14,6 +37,8 @@ extension AsExtension on Object? {
     }
     return object == null;
   }
+
+  bool get isNotNullOrEmpty => !isNullOrEmpty;
 }
 
 extension AsSubtypeExtension<X> on X {
