@@ -5,3 +5,18 @@ targets:
         options:
           explicit_to_json: true
           field_rename: snake
+      auto_route_generator:auto_route_generator: # this for @RoutePage
+        options:
+          enable_cached_builds: true
+        generate_for:
+          - lib/**_page.dart
+      auto_route_generator:auto_router_generator: # this for @AutoRouterConfig
+        options:
+          enable_cached_builds: true
+        generate_for:
+          - lib/**_router.dart
+
+global_options:
+  freezed:
+    runs_before:
+      - json_serializable
