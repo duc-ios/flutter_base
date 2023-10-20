@@ -1,4 +1,5 @@
 {
+    "@@locale": "zh_Hant",
     "login": "連接",
     "logout": "登出",
     "email": "電子郵件",
