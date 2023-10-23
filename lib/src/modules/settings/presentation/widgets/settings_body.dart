@@ -11,8 +11,8 @@ import '../../../app/app_router.dart';
 
 class SettingsBody extends StatelessWidget {
   const SettingsBody({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

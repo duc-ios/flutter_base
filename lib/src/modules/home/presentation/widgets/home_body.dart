@@ -8,8 +8,8 @@ import '../../../app/app_router.dart';
 
 class HomeBody extends StatelessWidget {
   const HomeBody({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

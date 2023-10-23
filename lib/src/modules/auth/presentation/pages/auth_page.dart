@@ -6,7 +6,7 @@ import '../widgets/auth_body.dart';
 
 @RoutePage()
 class AuthPage extends StatelessWidget {
-  const AuthPage({Key? key}) : super(key: key);
+  const AuthPage({super.key});
 
   @override
   Widget build(BuildContext context) {

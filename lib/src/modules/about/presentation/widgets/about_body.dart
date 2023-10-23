@@ -7,8 +7,8 @@ import '../../application/blocs/about/about_bloc.dart';
 
 class AboutBody extends StatelessWidget {
   const AboutBody({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

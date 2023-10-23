@@ -19,8 +19,7 @@ abstract class GenericObject<T> {
 class ResponseWrapper<T> extends GenericObject<T> {
   late T response;
 
-  ResponseWrapper(T Function(Map<String, dynamic>) fromJsonT)
-      : super(fromJsonT);
+  ResponseWrapper(super.fromJsonT);
 
   factory ResponseWrapper.init(
       {required T Function(Map<String, dynamic>) fromJsonT,

@@ -7,7 +7,7 @@ import '../../application/blocs/counter/counter_bloc.dart';
 import '../../application/cubits/tap/tap_cubit.dart';
 
 class CounterBody extends StatelessWidget {
-  const CounterBody({Key? key}) : super(key: key);
+  const CounterBody({super.key});
 
   @override
   Widget build(BuildContext context) {

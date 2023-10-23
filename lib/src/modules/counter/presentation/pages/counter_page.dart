@@ -8,7 +8,7 @@ import '../widgets/counter_body.dart';
 
 @RoutePage()
 class CounterPage extends StatelessWidget {
-  const CounterPage({Key? key}) : super(key: key);
+  const CounterPage({super.key});
 
   @override
   Widget build(BuildContext context) {

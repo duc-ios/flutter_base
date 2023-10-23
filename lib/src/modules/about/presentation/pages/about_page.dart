@@ -8,7 +8,7 @@ import '../widgets/about_body.dart';
 
 @RoutePage()
 class AboutPage extends StatelessWidget {
-  const AboutPage({Key? key}) : super(key: key);
+  const AboutPage({super.key});
 
   @override
   Widget build(BuildContext context) {

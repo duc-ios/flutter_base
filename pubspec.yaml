@@ -36,6 +36,7 @@ dependencies:
   enum_annotation: ^0.0.4
   rx_shared_preferences: ^3.1.0
   streaming_shared_preferences: ^2.0.0
+  dartx: ^1.2.0
 
 dev_dependencies:
   flutter_lints: ^3.0.0

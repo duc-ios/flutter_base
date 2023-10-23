@@ -19,13 +19,13 @@ class ErrorInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     var error = err.error;
     if (error is ApiError) {
       return super.onError(err, handler);
     }
 
-    if (err.type == DioErrorType.cancel) {
+    if (err.type == DioExceptionType.cancel) {
       error = ApiError.cancelled();
     } else {
       final statusCode = err.response?.statusCode ?? -1;

@@ -82,7 +82,7 @@ class ApiClient {
         ResponseWrapper.init(fromJsonT: fromJsonT, data: response.data)
             .response,
       );
-    } on DioError catch (err) {
+    } on DioException catch (err) {
       return left(err.error.asOrNull() ?? ApiError.unexpected());
     } catch (error) {
       return left(ApiError.internal(error.toString()));

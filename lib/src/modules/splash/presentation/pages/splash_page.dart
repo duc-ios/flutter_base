@@ -8,7 +8,7 @@ import '../../../app/app_router.dart';
 
 @RoutePage()
 class SplashPage extends StatelessWidget {
-  SplashPage({Key? key}) : super(key: key) {
+  SplashPage({super.key}) {
     fetchAll();
   }
 

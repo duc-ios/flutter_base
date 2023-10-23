@@ -3,8 +3,7 @@ import 'package:flutter/material.dart';
 
 @RoutePage()
 class SupportivePage extends StatelessWidget {
-  const SupportivePage({Key? key, required this.title, required this.content})
-      : super(key: key);
+  const SupportivePage({super.key, required this.title, required this.content});
 
   final String title;
   final String content;

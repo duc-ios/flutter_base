@@ -10,7 +10,7 @@ import '../../../../core/application/cubits/auth/auth_cubit.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
 class AuthBody extends StatefulWidget {
-  const AuthBody({Key? key}) : super(key: key);
+  const AuthBody({super.key});
 
   @override
   State<AuthBody> createState() => _AuthBodyState();

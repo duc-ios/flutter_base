@@ -42,7 +42,7 @@ class ApiLogInterceptor extends InterceptorsWrapper {
   }
 
   @override
-  void onError(DioError err, ErrorInterceptorHandler handler) {
+  void onError(DioException err, ErrorInterceptorHandler handler) {
     logger.e(
         '''${err.requestOptions.method.toUpperCase()} ${err.requestOptions.uri} - ${err.response?.statusCode}''');
     logger.e('Error: ${err.error}');
