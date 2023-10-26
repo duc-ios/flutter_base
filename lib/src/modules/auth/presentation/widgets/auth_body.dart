@@ -1,13 +1,4 @@
-import 'package:asuka/asuka.dart';
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-
-import '../../../../../generated/assets.gen.dart';
-import '../../../../../generated/colors.gen.dart';
-import '../../../../common/extensions/build_context_x.dart';
-import '../../../../core/application/cubits/auth/auth_cubit.dart';
-import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
+part of '../pages/auth_page.dart';
 
 class AuthBody extends StatefulWidget {
   const AuthBody({super.key});
@@ -19,7 +10,6 @@ class AuthBody extends StatefulWidget {
 class _AuthBodyState extends State<AuthBody> {
   final _emailTextEditingController = TextEditingController();
   final _passwordTextEditingController = TextEditingController();
-  bool _passwordVisible = false;
 
   @override
   void dispose() {
@@ -45,58 +35,38 @@ class _AuthBodyState extends State<AuthBody> {
               return const CircularProgressIndicator();
             }
             return SafeArea(
-              child: Padding(
-                padding: const EdgeInsets.all(32.0),
-                child: Wrap(
-                  alignment: WrapAlignment.center,
-                  runSpacing: 16.0,
-                  children: [
-                    Assets.images.welcome.image(),
-                    TextField(
-                      controller: _emailTextEditingController,
-                      decoration: InputDecoration(
-                        label: Text(context.s.email),
-                        hintText: 'example@domain.com',
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    runSpacing: 16.0,
+                    children: [
+                      Assets.images.welcome.image(),
+                      EmailWidget(
+                        emailTextEditingController: _emailTextEditingController,
                         errorText: state.whenOrNull<String?>(
                           error: (error) => error.whenOrNull(
                             invalidEmail: () => context.s.error_invalid_email,
                           ),
                         ),
-                        errorMaxLines: 2,
                       ),
-                    ),
-                    TextField(
-                      obscureText: !_passwordVisible,
-                      controller: _passwordTextEditingController,
-                      decoration: InputDecoration(
-                        label: Text(context.s.password),
-                        hintText: 'aA12345@',
+                      PasswordWidget(
+                        passwordTextEditingController:
+                            _passwordTextEditingController,
                         errorText: state.whenOrNull<String?>(
                           error: (error) => error.whenOrNull(
                             invalidPassword: () =>
                                 context.s.error_invalid_password,
                           ),
                         ),
-                        errorMaxLines: 2,
-                        suffixIcon: IconButton(
-                          icon: Icon(
-                            _passwordVisible
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                          ),
-                          onPressed: () {
-                            setState(() {
-                              _passwordVisible = !_passwordVisible;
-                            });
-                          },
-                        ),
                       ),
-                    ),
-                    ElevatedButton(
-                      child: Text(context.s.login),
-                      onPressed: () => _login(context),
-                    ),
-                  ],
+                      ElevatedButton(
+                        child: Text(context.s.login),
+                        onPressed: () => _login(context),
+                      ),
+                    ],
+                  ),
                 ),
               ),
             );
@@ -117,13 +87,13 @@ class _AuthBodyState extends State<AuthBody> {
   void _showError(String message) {
     Asuka.showDialog(
       barrierDismissible: false,
-      builder: (alertContext) => CupertinoAlertDialog(
+      builder: (alertContext) => AlertDialog.adaptive(
         title: Text(alertContext.s.error),
         content: Text(message),
         actions: [
-          CupertinoDialogAction(
-            child: Text(alertContext.s.ok),
+          AdaptiveDialogAction(
             onPressed: () => Navigator.pop(alertContext),
+            child: Text(alertContext.s.ok),
           )
         ],
       ),
