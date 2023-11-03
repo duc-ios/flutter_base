@@ -10,6 +10,7 @@
     "error_unauthorized": "未經授權！",
     "error_invalid_email": "不合規電郵",
     "error_invalid_password": "您的密碼必須至少8個字符，包括小寫字母，大寫字母和一個號碼",
+    "error_internal_server": "內部伺服器錯誤",
     "ok": "好的",
     "confirm": "確認",
     "cancel": "取消",

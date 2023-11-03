@@ -34,10 +34,15 @@ class AuthCubit extends Cubit<AuthState> {
     } else {
       emit(const _Loading());
       final result = await _repository.login(request);
-      emit(result.fold((l) => _Error(AuthError.other(l.message)), (r) {
-        _repository.setUser(r);
-        return _Authenticated(r);
-      }));
+      emit(result.fold(
+        (success) {
+          _repository.setUser(success);
+          return _Authenticated(success);
+        },
+        (failure) => _Error(
+          AuthError.other(failure.message),
+        ),
+      ));
     }
   }
 

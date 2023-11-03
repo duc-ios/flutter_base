@@ -1,5 +1,5 @@
-import 'package:dartz/dartz.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:result_dart/result_dart.dart';
 
 import 'api_error.dart';
 
@@ -61,11 +61,18 @@ class PagingApiResponse<T> with _$PagingApiResponse<T> {
       _$PagingApiResponseFromJson(json, fromJsonT);
 }
 
-extension FoldedSingleApiResponse<T> on Either<ApiError, SingleApiResponse<T>> {
-  Either<ApiError, T> get folded => fold((l) => left(l), (r) => right(r.data));
+extension FoldedSingleApiResponse<T extends Object>
+    on Result<SingleApiResponse<T>, ApiError> {
+  Result<T, ApiError> get folded => fold(
+        (success) => Success(success.data),
+        (failure) => Failure(failure),
+      );
 }
 
-extension FoldedListApiResponse<T> on Either<ApiError, ListApiResponse<T>> {
-  Either<ApiError, List<T>> get folded =>
-      fold((l) => left(l), (r) => right(r.data));
+extension FoldedListApiResponse<T extends Object>
+    on Result<ListApiResponse<T>, ApiError> {
+  Result<List<T>, ApiError> get folded => fold(
+        (success) => Success(success.data),
+        (failure) => Failure(failure),
+      );
 }

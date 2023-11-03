@@ -10,6 +10,7 @@
     "error_unauthorized": "Unauthorized!",
     "error_invalid_email": "Invalid email",
     "error_invalid_password": "Your password must be at least 8 characters including a lowercase letter, an uppercase letter, and a number",
+    "error_internal_server": "Internal Server Error",
     "ok": "OK",
     "confirm": "Confirm",
     "cancel": "Cancel",

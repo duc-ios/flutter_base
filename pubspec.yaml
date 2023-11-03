@@ -37,6 +37,8 @@ dependencies:
   rx_shared_preferences: ^3.1.0
   streaming_shared_preferences: ^2.0.0
   dartx: ^1.2.0
+  result_dart: ^1.1.0
+  retrofit: ^4.0.3
 
 dev_dependencies:
   flutter_lints: ^3.0.0
@@ -55,6 +57,7 @@ dev_dependencies:
   enum_generator: ^1.1.2
   injectable_generator: ^2.4.1
   flutter_launcher_icons: ^0.13.1
+  retrofit_generator: ^8.0.3
 
 flutter:
   uses-material-design: true

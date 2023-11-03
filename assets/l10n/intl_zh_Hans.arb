@@ -10,6 +10,7 @@
     "error_unauthorized": "未经授权！",
     "error_invalid_email": "不合规电邮",
     "error_invalid_password": "您的密码必须至少8个字符，包括小写字母，大写字母和一个号码",
+    "error_internal_server": "内部服务器错误",
     "ok": "好的",
     "confirm": "确认",
     "cancel": "取消",
