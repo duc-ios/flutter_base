@@ -1,7 +1,7 @@
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/theme/app_theme.dart';
@@ -16,27 +16,31 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
-    return BlocBuilder<LangCubit, Locale>(
-      builder: (context, locale) {
-        return AppThemeWrapper(
-            appTheme: AppTheme.create(locale),
-            builder: (BuildContext context, ThemeData themeData) {
-              return MaterialApp.router(
-                localizationsDelegates: const [
-                  S.delegate,
-                  GlobalMaterialLocalizations.delegate,
-                  GlobalWidgetsLocalizations.delegate,
-                  GlobalCupertinoLocalizations.delegate,
-                ],
-                supportedLocales: S.delegate.supportedLocales,
-                locale: locale,
-                builder: Asuka.builder,
-                theme: themeData,
-                routerDelegate: router.delegate(),
-                routeInformationParser: router.defaultRouteParser(),
-              );
-            });
-      },
+    return ScreenUtilInit(
+      designSize: const Size(390, 844),
+      minTextAdapt: true,
+      splitScreenMode: true,
+      builder: (context, child) => BlocBuilder<LangCubit, Locale>(
+        builder: (context, locale) {
+          return AppThemeWrapper(
+              appTheme: AppTheme.create(locale),
+              builder: (BuildContext context, ThemeData themeData) {
+                return MaterialApp.router(
+                  localizationsDelegates: const [
+                    S.delegate,
+                    GlobalMaterialLocalizations.delegate,
+                    GlobalWidgetsLocalizations.delegate,
+                    GlobalCupertinoLocalizations.delegate,
+                  ],
+                  supportedLocales: S.delegate.supportedLocales,
+                  locale: locale,
+                  theme: themeData,
+                  routerDelegate: router.delegate(),
+                  routeInformationParser: router.defaultRouteParser(),
+                );
+              });
+        },
+      ),
     );
   }
 }

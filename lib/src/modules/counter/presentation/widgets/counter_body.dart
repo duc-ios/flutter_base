@@ -1,7 +1,7 @@
-import 'package:asuka/asuka.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../../common/extensions/build_context_dialog.dart';
 import '../../../../common/extensions/build_context_x.dart';
 import '../../application/blocs/counter/counter_bloc.dart';
 import '../../application/cubits/tap/tap_cubit.dart';
@@ -16,10 +16,10 @@ class CounterBody extends StatelessWidget {
     return MultiBlocListener(
       listeners: [
         BlocListener<CounterBloc, CounterState>(listener: (_, state) {
-          state.whenOrNull(failure: (error) => showDialog(error.toString()));
+          state.whenOrNull(failure: (error) => context.showError(error));
         }),
         BlocListener<TapCubit, TapState>(listener: (_, state) {
-          state.whenOrNull(failure: (error) => showDialog(error.toString()));
+          state.whenOrNull(failure: (error) => context.showError(error));
         }),
       ],
       child: Scaffold(
@@ -75,21 +75,6 @@ class CounterBody extends StatelessWidget {
               },
             ),
           ],
-        ),
-      ),
-    );
-  }
-
-  void showDialog(String message) {
-    Asuka.showDialog(
-      builder: (context) => AlertDialog(
-        backgroundColor: Colors.redAccent,
-        content: Text(
-          message,
-          style: Theme.of(context)
-              .textTheme
-              .bodyLarge
-              ?.copyWith(color: Colors.white),
         ),
       ),
     );

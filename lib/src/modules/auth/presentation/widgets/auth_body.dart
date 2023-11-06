@@ -26,7 +26,7 @@ class _AuthBodyState extends State<AuthBody> {
           listener: (context, state) {
             state.whenOrNull(
               error: (error) => error.whenOrNull(
-                other: (message) => _showError(message),
+                other: (message) => context.showError(message),
               ),
             );
           },
@@ -90,21 +90,5 @@ class _AuthBodyState extends State<AuthBody> {
     await context
         .read<AuthCubit>()
         .login(LoginRequest(email: email, password: password));
-  }
-
-  void _showError(String message) {
-    Asuka.showDialog(
-      barrierDismissible: false,
-      builder: (alertContext) => AlertDialog.adaptive(
-        title: Text(alertContext.s.error),
-        content: Text(message),
-        actions: [
-          AdaptiveDialogAction(
-            onPressed: () => Navigator.pop(alertContext),
-            child: Text(alertContext.s.ok),
-          )
-        ],
-      ),
-    );
   }
 }

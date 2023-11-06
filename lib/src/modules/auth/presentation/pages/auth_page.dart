@@ -1,4 +1,3 @@
-import 'package:asuka/asuka.dart';
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -6,8 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../../generated/assets.gen.dart';
 import '../../../../../generated/colors.gen.dart';
+import '../../../../common/extensions/build_context_dialog.dart';
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../common/widgets/adaptive_dialog_action.dart';
 import '../../../../core/application/cubits/auth/auth_cubit.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 

@@ -8,7 +8,7 @@ part 'api_error.freezed.dart';
 part 'api_error.g.dart';
 
 @freezed
-class ApiError with _$ApiError {
+class ApiError with _$ApiError implements Exception {
   factory ApiError(int? code, String message) = _ApiError;
   factory ApiError.server({int? code, required String message}) = _Server;
   factory ApiError.network({int? code, required String message}) = _Network;

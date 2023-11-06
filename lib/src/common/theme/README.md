@@ -76,7 +76,6 @@ class AppWidget extends StatelessWidget {
             ],
             supportedLocales: S.delegate.supportedLocales,
             locale: locale,
-            builder: Asuka.builder,
             theme: themeData,
             routerDelegate: router.delegate(),
             routeInformationParser: router.defaultRouteParser(),
