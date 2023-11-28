@@ -19,7 +19,7 @@ select flavor in "dev" "prg" "uat" "prd"; do
 
   # Generate assets
   flutter pub get
-  flutter pub run build_runner build --delete-conflicting-outputs
+  dart run build_runner build --delete-conflicting-outputs
   sh scripts/generate_assets.sh
 
   # Build and open apk
