@@ -19,7 +19,7 @@ void main() async {
 
   await AppEnvironment.setup();
   await Storage.setup();
-  configureDependencies();
+  await GetItUtils.setup();
 
   final langRepository = getIt<ILangRepository>();
   logger
