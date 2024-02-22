@@ -1,14 +1,15 @@
+plugins {
+    id "com.android.application"
+    id "kotlin-android"
+    id "dev.flutter.flutter-gradle-plugin"
+}
+
 def localProperties = new Properties()
 def localPropertiesFile = rootProject.file('local.properties')
 if (localPropertiesFile.exists()) {
     localPropertiesFile.withReader('UTF-8') { reader ->
         localProperties.load(reader)
     }
-}
-
-def flutterRoot = localProperties.getProperty('flutter.sdk')
-if (flutterRoot == null) {
-    throw GradleException("Flutter SDK not found. Define location with flutter.sdk in the local.properties file.")
 }
 
 def flutterVersionCode = localProperties.getProperty('flutter.versionCode')
@@ -21,30 +22,26 @@ if (flutterVersionName == null) {
     flutterVersionName = '1.0'
 }
 
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
-
 project.ext.envConfigFiles = [
-        alpha : "env/.env.alpha",
-        dev : "env/.env.dev",
-        prg : "env/.env.prg",
-        uat : "env/.env.uat",
-        prd : "env/.env.prd",
+        alpha: "env/.env.alpha",
+        dev  : "env/.env.dev",
+        prg  : "env/.env.prg",
+        uat  : "env/.env.uat",
+        prd  : "env/.env.prd",
 ]
 apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 
 android {
-    compileSdkVersion 33 // flutter.compileSdkVersion
+    compileSdk 34 // flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
     }
 
     sourceSets {
@@ -68,7 +65,7 @@ android {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `dart run --release` works.
             signingConfig signingConfigs.debug
-            
+
             shrinkResources true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -99,6 +96,4 @@ flutter {
     source '../..'
 }
 
-dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-}
+dependencies {}
