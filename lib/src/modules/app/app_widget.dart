@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../generated/l10n.dart';
 import '../../common/theme/app_theme.dart';
@@ -16,6 +17,7 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
+    final talker = getIt<Talker>();
     return ScreenUtilInit(
       designSize: const Size(390, 844),
       minTextAdapt: true,
@@ -35,8 +37,9 @@ class AppWidget extends StatelessWidget {
                   supportedLocales: S.delegate.supportedLocales,
                   locale: locale,
                   theme: themeData,
-                  routerDelegate: router.delegate(),
-                  routeInformationParser: router.defaultRouteParser(),
+                  routerConfig: router.config(
+                    navigatorObservers: () => [TalkerRouteObserver(talker)],
+                  ),
                 );
               });
         },
