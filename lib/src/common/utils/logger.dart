@@ -1,42 +1,52 @@
-import 'package:flutter_loggy/flutter_loggy.dart';
-import 'package:loggy/loggy.dart';
-import 'package:stack_trace/stack_trace.dart';
+import 'package:flutter/foundation.dart';
+import 'package:injectable/injectable.dart';
+import 'package:talker_flutter/talker_flutter.dart';
 
-final logger = _Logger();
+import 'getit_utils.dart';
+
+@module
+abstract class LoggerModule {
+  @singleton
+  Talker talker() => TalkerFlutter.init(
+    settings: TalkerSettings(
+      useConsoleLogs: kDebugMode,
+      colors: {
+        TalkerLogType.debug: AnsiPen()..green(),
+        TalkerLogType.warning: AnsiPen()..yellow(bold: true),
+        TalkerLogType.error: AnsiPen()..red(bold: true)
+      },
+    ),
+  );
+}
+
+final logger = _Logger(getIt<Talker>());
 
 class _Logger {
-  _Logger() {
-    Loggy.initLoggy(
-      logPrinter: StreamPrinter(const PrettyDeveloperPrinter()),
-    );
-  }
-
-  final _colors = {
-    'v': '30',
-    'd': '37',
-    'i': '34',
-    's': '32',
-    'w': '33',
-    'e': '31',
-  };
-  String _colorFor(String level) => '\x1B[${_colors[level]}m';
+  final Talker talker;
+  _Logger(this.talker);
 
   // White text
-  d(dynamic msg) =>
-      logDebug('${_traceInfo()}\n${_colorFor('d')}${msg.toString()}\x1B[0m');
+  d(dynamic msg, {
+    Object? exception,
+    StackTrace? stackTrace,
+  }) => talker.debug(msg, exception, stackTrace);
+
 
   // Blue text
-  i(dynamic msg) =>
-      logInfo('${_traceInfo()}\n${_colorFor('i')}${msg.toString()}\x1B[0m');
+  i(dynamic msg, {
+    Object? exception,
+    StackTrace? stackTrace,
+  }) => talker.info(msg, exception, stackTrace);
 
   // Yellow text
-  w(dynamic msg) =>
-      logWarning('${_traceInfo()}\n${_colorFor('w')}${msg.toString()}\x1B[0m');
+  w(dynamic msg, {
+    Object? exception,
+    StackTrace? stackTrace,
+  }) => talker.warning(msg, exception, stackTrace);
 
   // Red text
-  e(dynamic msg) =>
-      logError('${_traceInfo()}\n${_colorFor('e')}${msg.toString()}\x1B[0m');
-
-  String _traceInfo() =>
-      Trace.from(StackTrace.current).terse.frames[2].toString();
+  e(dynamic msg, {
+    Object? exception,
+    StackTrace? stackTrace,
+  }) => talker.error(msg, exception, stackTrace);
 }
