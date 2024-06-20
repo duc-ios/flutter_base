@@ -18,7 +18,7 @@ select flavor in "dev" "prg" "uat" "prd"; do
   echo "Preparing build: $file_name"
 
   # Generate assets
-  flutter pub get
+  dart pub get
   dart run build_runner build --delete-conflicting-outputs
   sh scripts/generate_assets.sh
 

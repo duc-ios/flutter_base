@@ -39,14 +39,11 @@ class AuthRepository implements IAuthRepository {
     LoginRequest request, {
     CancelToken? token,
   }) async {
-    var result = await _client.loginFailed(token).result();
+    var result = _client.loginFailed(token);
     if (request.password == 'aA12345@') {
-      result = await _client.login(request, token).result();
+      result = _client.login(request, token);
     }
-    return result.fold(
-      (success) => Success(success.data.user),
-      (failure) => Failure(failure),
-    );
+    return result.tryGet((response) => response.data.user);
   }
 
   @override
@@ -57,20 +54,12 @@ class AuthRepository implements IAuthRepository {
 
   @override
   Future<Result<List<UserModel>, ApiError>> users({CancelToken? token}) async {
-    final result = (await _client.users(token).result());
-    return result.fold(
-      (success) => Success(success.data),
-      (failure) => Failure(failure),
-    );
+    return await _client.users(token).tryGet((response) => response.data);
   }
 
   @override
   Future<Result<UserModel, ApiError>> user(String id,
       {CancelToken? token}) async {
-    final result = await _client.user(id, token).result();
-    return result.fold(
-      (success) => Success(success.data),
-      (failure) => Failure(failure),
-    );
+    return await _client.user(id, token).tryGet((response) => response.data);
   }
 }
