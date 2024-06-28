@@ -1,6 +1,6 @@
 name: flutter_base
 description: A base Flutter project.
-version: 1.0.0+1
+version: 0.0.1+1
 publish_to: none
 
 environment:
