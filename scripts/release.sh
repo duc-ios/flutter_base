@@ -83,8 +83,8 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
 
   # Commit and tag this change.
   git add .
-  git commit -m "$flavor/$version"
-  git tag "$flavor/$version" -f
+  git commit -m "build(release): bump version to $flavor/$version"
+  git tag "release/$flavor/$version" -f
 
   exit 0
 done
