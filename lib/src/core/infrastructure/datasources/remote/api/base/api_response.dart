@@ -30,6 +30,14 @@ class ResponseWrapper<T> extends GenericObject<T> {
   }
 }
 
+@freezed
+class ApiResponse with _$ApiResponse {
+  const factory ApiResponse(ApiError? error, String message) = _ApiResponse;
+
+  factory ApiResponse.fromJson(Map<String, dynamic> json) =>
+      _$ApiResponseFromJson(json);
+}
+
 @Freezed(genericArgumentFactories: true)
 class SingleApiResponse<T> with _$SingleApiResponse<T> {
   const factory SingleApiResponse(T data) = _SingleApiResponse;

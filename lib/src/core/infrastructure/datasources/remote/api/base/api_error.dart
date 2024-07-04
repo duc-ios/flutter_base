@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../../../generated/l10n.dart';
+import '../../../../../../common/utils/app_environment.dart';
 
 part 'api_error.freezed.dart';
 part 'api_error.g.dart';
@@ -22,6 +23,13 @@ class ApiError with _$ApiError implements Exception {
 
   ApiError._();
 
+  int? get code {
+    return whenOrNull(
+      (code, _) => code,
+      server: (code, _) => code,
+    );
+  }
+
   String get message {
     return maybeWhen(
       orElse: () => S.current.error_unexpected,
@@ -39,6 +47,8 @@ class ApiError with _$ApiError implements Exception {
         network: (code, __) => code == HttpStatus.internalServerError
             ? S.current.error_internal_server
             : S.current.error,
-        orElse: () => S.current.error,
+        orElse: () =>
+            S.current.error +
+            (AppEnvironment.flavor != AppEnvironment.prd ? ': $code' : ''),
       );
 }

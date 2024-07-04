@@ -26,6 +26,7 @@ class _AuthBodyState extends State<AuthBody> {
           listener: (context, state) {
             state.whenOrNull(
               error: (error) => error.whenOrNull(
+                api: (error) => context.showApiError(error),
                 other: (message) => context.showError(message),
               ),
             );

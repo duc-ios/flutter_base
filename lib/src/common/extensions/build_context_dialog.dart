@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../../core/infrastructure/datasources/remote/api/base/api_error.dart';
 import '../widgets/adaptive_dialog_action.dart';
 import 'build_context_x.dart';
 
@@ -14,6 +15,11 @@ extension BuildContextDialog on BuildContext {
   bool get isShowingDialog => ModalRoute.of(this)?.isCurrent != true;
 
   void showError(String message) => showAlert(title: s.error, content: message);
+
+  void showApiError(ApiError error) => showAlert(
+        title: error.title,
+        content: error.message,
+      );
 
   void showAlert({
     String? title,

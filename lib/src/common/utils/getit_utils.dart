@@ -7,8 +7,11 @@ import 'getit_utils.config.dart';
 final getIt = GetIt.instance;
 
 @injectableInit
-void configureDependencies() => getIt.init(environment: AppEnvironment.flavor);
+void configureDependencies({required String flavor}) =>
+    getIt.init(environment: flavor);
 
 class GetItUtils {
-  static setup() async => configureDependencies();
+  static setup({String? flavor}) async => configureDependencies(
+        flavor: flavor ?? AppEnvironment.flavor,
+      );
 }

@@ -39,9 +39,7 @@ class AuthCubit extends Cubit<AuthState> {
           _repository.setUser(success);
           return _Authenticated(success);
         },
-        (failure) => _Error(
-          AuthError.other(failure.message),
-        ),
+        (failure) => _Error(AuthError.api(failure)),
       ));
     }
   }

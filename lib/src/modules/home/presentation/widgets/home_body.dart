@@ -36,12 +36,12 @@ class HomeBody extends StatelessWidget {
           ),
           const SizedBox(height: 32),
           ElevatedButton(
-            onPressed: () => context.router.push(const CounterRoute()),
+            onPressed: () => context.pushRoute(const CounterRoute()),
             child: Text(context.s.counter),
           ),
           const SizedBox(height: 16),
           ElevatedButton(
-            onPressed: () => context.router.push(const SettingsRoute()),
+            onPressed: () => context.pushRoute(const SettingsRoute()),
             child: Text(context.s.settings),
           ),
         ],

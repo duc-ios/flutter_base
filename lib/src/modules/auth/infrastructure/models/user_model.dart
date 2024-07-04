@@ -10,6 +10,7 @@ class UserModel with _$UserModel implements User {
   const UserModel._();
 
   const factory UserModel({
+    @Default('0') String id,
     @Default('') String name,
     @Default('') String email,
     @Default('') String avatar,

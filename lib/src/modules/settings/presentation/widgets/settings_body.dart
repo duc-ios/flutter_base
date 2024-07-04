@@ -45,11 +45,11 @@ class SettingsBody extends StatelessWidget {
         ),
         ListTile(
           title: Text(context.s.about),
-          onTap: () => context.router.push(const AboutRoute()),
+          onTap: () => context.pushRoute(const AboutRoute()),
         ),
         ListTile(
           title: Text(context.s.terms_conditions),
-          onTap: () => context.router.push(SupportiveRoute(
+          onTap: () => context.pushRoute(SupportiveRoute(
             title: context.s.terms_conditions,
             content: '''
 Ex cillum cillum deserunt labore ea cupidatat consectetur irure labore esse commodo nisi. Nulla culpa voluptate consectetur eiusmod nisi veniam ut. Enim ex culpa enim occaecat ex.
@@ -60,7 +60,7 @@ Deserunt eiusmod est ut ut exercitation aliquip eu consequat eu exercitation ali
         ),
         ListTile(
           title: Text(context.s.privacy_policies),
-          onTap: () => context.router.push(SupportiveRoute(
+          onTap: () => context.pushRoute(SupportiveRoute(
             title: context.s.privacy_policies,
             content: '''
 Et incididunt minim tempor anim. Eiusmod cupidatat dolore est nulla. Cillum eu excepteur qui aliquip ullamco qui excepteur excepteur do esse labore minim voluptate. Minim deserunt tempor excepteur ipsum voluptate nulla aliquip elit aute culpa laborum aliquip mollit eu.
