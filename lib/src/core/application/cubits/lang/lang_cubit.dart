@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/locale_x.dart';
 import '../../../../common/utils/logger.dart';
-import '../../../domain/interfaces/lang_repository_interface.dart';
+import '../../../domain/interfaces/lang_repository.dart';
 
 @singleton
 class LangCubit extends Cubit<Locale> {
@@ -13,7 +13,7 @@ class LangCubit extends Cubit<Locale> {
     this._repository,
   ) : super(_repository.getLocale());
 
-  final ILangRepository _repository;
+  final LangRepository _repository;
 
   void setLocale(Locale val) async {
     try {

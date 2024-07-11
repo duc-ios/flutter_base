@@ -8,7 +8,7 @@ import 'package:talker_flutter/talker_flutter.dart';
 import '../../../../../../generated/l10n.dart';
 import '../../../../../common/extensions/optional_x.dart';
 import '../../../../../common/utils/app_environment.dart';
-import '../../../../domain/interfaces/lang_repository_interface.dart';
+import '../../../../domain/interfaces/lang_repository.dart';
 import '../../local/storage.dart';
 import 'base/api_error.dart';
 import 'interceptors/auth_interceptor.dart';
@@ -23,7 +23,7 @@ abstract class ApiModule {
   @singleton
   Dio dio(
     @Named('baseUrl') String url,
-    ILangRepository repo,
+    LangRepository repo,
     Talker talker,
   ) =>
       Dio(

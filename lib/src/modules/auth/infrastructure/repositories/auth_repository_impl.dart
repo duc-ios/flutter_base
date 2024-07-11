@@ -10,14 +10,14 @@ import '../../../../core/infrastructure/datasources/remote/api/base/api_error.da
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/interfaces/auth_repository_interface.dart';
+import '../../domain/interfaces/auth_repository.dart';
 import '../models/user_model.dart';
 
-@LazySingleton(as: IAuthRepository, env: AppEnvironment.environments, order: -1)
-class AuthRepository implements IAuthRepository {
+@LazySingleton(as: AuthRepository, env: AppEnvironment.environments, order: -1)
+class AuthRepositoryImp implements AuthRepository {
   final AuthClient _client;
 
-  AuthRepository(this._client);
+  AuthRepositoryImp(this._client);
 
   @override
   UserModel? getUser() => Storage.user;

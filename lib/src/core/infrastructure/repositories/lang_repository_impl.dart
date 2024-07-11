@@ -5,11 +5,11 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../generated/l10n.dart';
 import '../../../common/extensions/locale_x.dart';
-import '../../domain/interfaces/lang_repository_interface.dart';
+import '../../domain/interfaces/lang_repository.dart';
 import '../datasources/local/storage.dart';
 
-@LazySingleton(as: ILangRepository)
-class LangRepository implements ILangRepository {
+@LazySingleton(as: LangRepository)
+class LangRepositoryImp implements LangRepository {
   @override
   Locale getDeviceLocale() => Platform.localeName.toLocale;
 

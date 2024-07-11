@@ -3,10 +3,10 @@ import 'dart:ui';
 import 'package:dio/dio.dart';
 
 import '../../../../../../common/extensions/locale_x.dart';
-import '../../../../../domain/interfaces/lang_repository_interface.dart';
+import '../../../../../domain/interfaces/lang_repository.dart';
 
 class LangInterceptor extends QueuedInterceptorsWrapper {
-  final ILangRepository _repository;
+  final LangRepository _repository;
 
   LangInterceptor(this._repository);
 
