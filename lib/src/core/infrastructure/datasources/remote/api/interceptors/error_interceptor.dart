@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 
 import '../../../../../../common/utils/getit_utils.dart';
-import '../../../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
+import '../../../../../../modules/auth/domain/interfaces/auth_repository.dart';
 import '../base/api_error.dart';
 
 class ErrorInterceptor extends InterceptorsWrapper {
@@ -22,7 +22,7 @@ class ErrorInterceptor extends InterceptorsWrapper {
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
     if (err.response?.statusCode == 401) {
-      getIt<IAuthRepository>().logout();
+      getIt<AuthRepository>().logout();
       handler.reject(err);
     } else {
       handler.next(err);

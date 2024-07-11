@@ -5,7 +5,7 @@ import '../../../../core/infrastructure/datasources/remote/api/base/api_error.da
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../entities/user.dart';
 
-abstract class IAuthRepository {
+abstract class AuthRepository {
   User? getUser();
   Future setUser(User? val);
   Future<String?> getAccessToken();

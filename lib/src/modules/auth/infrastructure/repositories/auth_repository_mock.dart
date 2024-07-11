@@ -11,12 +11,12 @@ import '../../../../core/infrastructure/datasources/local/storage.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../../domain/entities/user.dart';
-import '../../domain/interfaces/auth_repository_interface.dart';
+import '../../domain/interfaces/auth_repository.dart';
 import '../models/user_model.dart';
 
 @alpha
-@LazySingleton(as: IAuthRepository)
-class AuthRepositoryMock implements IAuthRepository {
+@LazySingleton(as: AuthRepository)
+class AuthRepositoryMock implements AuthRepository {
   AuthRepositoryMock();
 
   @override

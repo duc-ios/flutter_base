@@ -13,7 +13,7 @@ import 'src/common/utils/getit_utils.dart';
 import 'src/common/utils/logger.dart';
 import 'src/core/application/cubits/auth/auth_cubit.dart';
 import 'src/core/application/cubits/lang/lang_cubit.dart';
-import 'src/core/domain/interfaces/lang_repository_interface.dart';
+import 'src/core/domain/interfaces/lang_repository.dart';
 import 'src/core/infrastructure/datasources/local/storage.dart';
 import 'src/modules/app/app_router.dart';
 import 'src/modules/app/app_widget.dart';
@@ -26,10 +26,11 @@ void main() {
     await Storage.setup();
     await GetItUtils.setup();
 
-    final langRepository = getIt<ILangRepository>();
+    final langRepository = getIt<LangRepository>();
     final talker = getIt<Talker>();
     _setupErrorHooks(talker);
-    logger.d('deviceLocale - ${langRepository.getDeviceLocale().fullLanguageCode}');
+    logger.d(
+        'deviceLocale - ${langRepository.getDeviceLocale().fullLanguageCode}');
     logger.d('currentLocale - ${langRepository.getLocale().fullLanguageCode}');
 
     Bloc.observer = TalkerBlocObserver(talker: talker);
@@ -45,8 +46,10 @@ void main() {
             BlocListener<AuthCubit, AuthState>(listener: (context, state) {
               final router = getIt<AppRouter>();
               state.whenOrNull(
-                  authenticated: (user) => router.replaceAll([const HomeRoute()]),
-                  unauthenticated: () => router.replaceAll([const AuthRoute()]));
+                  authenticated: (user) =>
+                      router.replaceAll([const HomeRoute()]),
+                  unauthenticated: () =>
+                      router.replaceAll([const AuthRoute()]));
             }),
           ],
           child: const AppWidget(),

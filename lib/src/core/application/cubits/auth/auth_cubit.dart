@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 import '../../../../common/utils/validator.dart';
 import '../../../../modules/auth/domain/entities/user.dart';
-import '../../../../modules/auth/domain/interfaces/auth_repository_interface.dart';
+import '../../../../modules/auth/domain/interfaces/auth_repository.dart';
 import '../../../domain/errors/auth_error.dart';
 import '../../../infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
@@ -13,7 +13,7 @@ part 'auth_state.dart';
 
 @singleton
 class AuthCubit extends Cubit<AuthState> {
-  final IAuthRepository _repository;
+  final AuthRepository _repository;
 
   AuthCubit(
     this._repository,
