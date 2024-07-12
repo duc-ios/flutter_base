@@ -41,10 +41,9 @@ extension LocaleX on Locale {
     if (scriptCode?.isNotEmpty == true && scriptCode == compare.scriptCode) {
       return true;
     }
-    if ((scriptCode?.isEmpty == true || compare.scriptCode?.isEmpty == true)
-        && countryCode?.isNotEmpty == true
-        && countryCode == compare.countryCode
-    ) {
+    if ((scriptCode?.isEmpty == true || compare.scriptCode?.isEmpty == true) &&
+        countryCode?.isNotEmpty == true &&
+        countryCode == compare.countryCode) {
       return true;
     }
     return false;
@@ -86,10 +85,19 @@ extension StringLocale on String {
 
 class ZHStringSupport {
   static const zhTraditionalString = [
-    'zh_Hant', 'zh_Hant_TW', 'zh_Hant_HK', 'zh_TW', 'zh_HK', 'zh_CHT'
+    'zh_Hant',
+    'zh_Hant_TW',
+    'zh_Hant_HK',
+    'zh_TW',
+    'zh_HK',
+    'zh_CHT'
   ];
 
   static const zhSimplifiedString = [
-    'zh_Hans', 'zh_Hans_CN', 'zh_CN', 'zh_CHS', 'zh_SG'
+    'zh_Hans',
+    'zh_Hans_CN',
+    'zh_CN',
+    'zh_CHS',
+    'zh_SG'
   ];
 }

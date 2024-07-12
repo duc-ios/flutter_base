@@ -2,7 +2,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:retrofit/retrofit.dart';
 
-import '../../../../../../../modules/auth/infrastructure/models/user_model.dart';
+import '../../../../../../../modules/auth/infrastructure/dtos/user_dto.dart';
 import '../../base/api_response.dart';
 import 'models/login_request.dart';
 import 'models/login_response.dart';
@@ -27,11 +27,11 @@ abstract class AuthClient {
   );
 
   @GET('/user')
-  Future<ListApiResponse<UserModel>> users(
+  Future<ListApiResponse<UserDTO>> users(
       @CancelRequest() CancelToken? cancelToken);
 
   @GET('/user/{id}')
-  Future<SingleApiResponse<UserModel>> user(
+  Future<SingleApiResponse<UserDTO>> user(
     @Path('id') String id,
     @CancelRequest() CancelToken? cancelToken,
   );

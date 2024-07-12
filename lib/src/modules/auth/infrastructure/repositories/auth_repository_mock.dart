@@ -12,7 +12,7 @@ import '../../../../core/infrastructure/datasources/remote/api/base/api_error.da
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository.dart';
-import '../models/user_model.dart';
+import '../dtos/user_dto.dart';
 
 @alpha
 @LazySingleton(as: AuthRepository)
@@ -20,11 +20,11 @@ class AuthRepositoryMock implements AuthRepository {
   AuthRepositoryMock();
 
   @override
-  UserModel? getUser() => Storage.user;
+  UserDTO? getUser() => Storage.user;
 
   @override
   Future setUser(User? val) async {
-    if (val is UserModel?) {
+    if (val is UserDTO?) {
       return Storage.setUser(val);
     }
   }
@@ -36,7 +36,7 @@ class AuthRepositoryMock implements AuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Result<UserModel, ApiError>> login(
+  Future<Result<UserDTO, ApiError>> login(
     LoginRequest request, {
     CancelToken? token,
   }) async {
@@ -55,12 +55,12 @@ class AuthRepositoryMock implements AuthRepository {
   }
 
   @override
-  Future<Result<List<UserModel>, ApiError>> users({CancelToken? token}) async {
+  Future<Result<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
     return AuthDataSourceMock.users.toSuccess();
   }
 
   @override
-  Future<Result<UserModel, ApiError>> user(String id,
+  Future<Result<UserDTO, ApiError>> user(String id,
       {CancelToken? token}) async {
     final user =
         AuthDataSourceMock.users.firstOrNullWhere((user) => user.id == id);
@@ -74,7 +74,7 @@ class AuthRepositoryMock implements AuthRepository {
 class AuthDataSourceMock {
   static final users = List.generate(9, (id) {
     final faker = Faker.instance;
-    return UserModel(
+    return UserDTO(
       id: id.toString(),
       name: faker.name.fullName(),
       email: id == 0 ? 'example@domain.com' : faker.internet.email(),

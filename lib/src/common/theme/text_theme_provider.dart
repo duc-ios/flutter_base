@@ -13,7 +13,8 @@ class TextThemeFactoryProvider {
 
   factory TextThemeFactoryProvider.of({
     required Map<Locale, TextThemeFactory> mapper,
-  }) => TextThemeFactoryProvider._(mapper);
+  }) =>
+      TextThemeFactoryProvider._(mapper);
 
   TextThemeFactory find(
     Locale locale, {

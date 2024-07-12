@@ -11,20 +11,20 @@ import '../../../../core/infrastructure/datasources/remote/api/services/auth/aut
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../../domain/entities/user.dart';
 import '../../domain/interfaces/auth_repository.dart';
-import '../models/user_model.dart';
+import '../dtos/user_dto.dart';
 
 @LazySingleton(as: AuthRepository, env: AppEnvironment.environments, order: -1)
-class AuthRepositoryImp implements AuthRepository {
+class AuthRepositoryImpl implements AuthRepository {
   final AuthClient _client;
 
-  AuthRepositoryImp(this._client);
+  AuthRepositoryImpl(this._client);
 
   @override
-  UserModel? getUser() => Storage.user;
+  UserDTO? getUser() => Storage.user;
 
   @override
   Future setUser(User? val) async {
-    if (val is UserModel?) {
+    if (val is UserDTO?) {
       return Storage.setUser(val);
     }
   }
@@ -36,7 +36,7 @@ class AuthRepositoryImp implements AuthRepository {
   Future setAccessToken(String? val) => Storage.setAccessToken(val);
 
   @override
-  Future<Result<UserModel, ApiError>> login(
+  Future<Result<UserDTO, ApiError>> login(
     LoginRequest request, {
     CancelToken? token,
   }) async {
@@ -58,12 +58,12 @@ class AuthRepositoryImp implements AuthRepository {
   }
 
   @override
-  Future<Result<List<UserModel>, ApiError>> users({CancelToken? token}) async {
+  Future<Result<List<UserDTO>, ApiError>> users({CancelToken? token}) async {
     return await _client.users(token).tryGet((response) => response.data);
   }
 
   @override
-  Future<Result<UserModel, ApiError>> user(String id,
+  Future<Result<UserDTO, ApiError>> user(String id,
       {CancelToken? token}) async {
     return await _client.user(id, token).tryGet((response) => response.data);
   }

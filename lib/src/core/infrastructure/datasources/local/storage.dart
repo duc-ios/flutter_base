@@ -7,7 +7,7 @@ import 'package:uuid/uuid.dart';
 
 import '../../../../common/extensions/optional_x.dart';
 import '../../../../common/utils/logger.dart';
-import '../../../../modules/auth/infrastructure/models/user_model.dart';
+import '../../../../modules/auth/infrastructure/dtos/user_dto.dart';
 
 class _Keys {
   static const lang = 'lang';
@@ -70,21 +70,21 @@ class Storage {
 
   static Future setLang(String? val) => _set(_Keys.lang, val);
 
-  static UserModel? get user {
+  static UserDTO? get user {
     final userString = _get<String>(_Keys.user);
     return _parseUser(userString);
   }
 
-  static Stream<UserModel?> get userStream {
+  static Stream<UserDTO?> get userStream {
     return _rxPrefs
         .getStringStream(_Keys.user)
         .map((event) => _parseUser(event));
   }
 
-  static UserModel? _parseUser(String? userString) {
+  static UserDTO? _parseUser(String? userString) {
     try {
       if (userString != null) {
-        return UserModel.fromJson(json.decode(userString));
+        return UserDTO.fromJson(json.decode(userString));
       }
     } catch (e) {
       logger.e(e);
@@ -92,7 +92,7 @@ class Storage {
     return null;
   }
 
-  static Future<void> setUser(UserModel? val) =>
+  static Future<void> setUser(UserDTO? val) =>
       _set(_Keys.user, json.encode(val?.toJson()));
 
   static Future<String?> get accessToken => _getSecure(_Keys.accessToken);
