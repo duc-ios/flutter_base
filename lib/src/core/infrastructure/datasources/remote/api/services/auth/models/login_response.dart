@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../../../../../../../modules/auth/infrastructure/models/user_model.dart';
+import '../../../../../../../../modules/auth/infrastructure/dtos/user_dto.dart';
 
 part 'login_response.freezed.dart';
 part 'login_response.g.dart';
@@ -8,7 +8,7 @@ part 'login_response.g.dart';
 @freezed
 class LoginResponse with _$LoginResponse {
   const factory LoginResponse({
-    @Default(UserModel()) UserModel user,
+    @Default(UserDTO()) UserDTO user,
     @Default('') String accessToken,
   }) = _LoginResponse;
 

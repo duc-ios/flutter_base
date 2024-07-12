@@ -1,9 +1,11 @@
-# Flexible Theme for flutter projects.
+# Flexible Theme for flutter projects
 
 This theme concept is inspired by the Factory Method pattern, which can change Flutter ThemeData and TextTheme by language. This document describes how to configure this concept in your Flutter project.
 
 To use this theme concept, follow these steps:
+
 1. Define a theme class for each supported locale. For example, if you support English and Chinese, you might define two classes:
+
 ```dart
 class EnTextThemeFactory implements TextThemeFactory {
   @override
@@ -32,7 +34,9 @@ class EnTextThemeFactory implements TextThemeFactory {
 
 class ZhTextThemeFactory implements TextThemeFactory {}
 ```
+
 Or, maybe reuse the old theme class and recreate a new variant:
+
 ```dart
 class EnTextThemeFactory extends BaseTextThemeFactory {
    @override
@@ -49,7 +53,9 @@ class EnTextThemeFactory extends BaseTextThemeFactory {
 
 class ZhTextThemeFactory implements BaseTextThemeFactory {}
 ```
-2. Add the themes you defined to MaterialApp via AppThemeWrapper.
+
+2. Add the themes you defined to MaterialApp via AppThemeWrapper:
+
 ```dart
 class AppWidget extends StatelessWidget {
   const AppWidget({super.key});
@@ -86,6 +92,7 @@ class AppWidget extends StatelessWidget {
   }
 }
 ```
+
 By default, the theme concept will choose the theme that is appropriate for the current locale. However, you can override this behavior by using the filter property. For example, you could use the filter property to only use the Chinese theme for locales that start with `zh`, such as `zh-Hant` and `zh-Hans`.
 
 ```dart
@@ -102,8 +109,8 @@ appTheme: AppTheme.create(
             ),
 ```
 
-
 Everything is completed. And now you can use in the BuildContext property:
+
 ```dart
 Text(`Hello World`, style: context.textTheme.bold)
 ```

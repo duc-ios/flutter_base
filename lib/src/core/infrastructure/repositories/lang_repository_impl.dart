@@ -9,7 +9,7 @@ import '../../domain/interfaces/lang_repository.dart';
 import '../datasources/local/storage.dart';
 
 @LazySingleton(as: LangRepository)
-class LangRepositoryImp implements LangRepository {
+class LangRepositoryImpl implements LangRepository {
   @override
   Locale getDeviceLocale() => Platform.localeName.toLocale;
 
