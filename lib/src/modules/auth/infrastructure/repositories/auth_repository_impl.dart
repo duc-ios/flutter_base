@@ -5,7 +5,7 @@ import 'package:result_dart/result_dart.dart';
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/app_environment.dart';
 import '../../../../core/infrastructure/datasources/local/storage.dart';
-import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
+import '../../../../core/infrastructure/datasources/remote/api/api_x.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/auth_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';

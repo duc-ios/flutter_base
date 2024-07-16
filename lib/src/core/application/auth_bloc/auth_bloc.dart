@@ -1,8 +1,9 @@
-import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:riverbloc/riverbloc.dart';
 
 import '../../../common/mixin/safe_bloc_base.dart';
+import '../../../common/utils/getit_utils.dart';
 import '../../../common/utils/validator.dart';
 import '../../../modules/auth/domain/entities/user.dart';
 import '../../../modules/auth/domain/interfaces/auth_repository.dart';
@@ -13,8 +14,11 @@ part 'auth_bloc.freezed.dart';
 part 'auth_event.dart';
 part 'auth_state.dart';
 
+final authProvider =
+    AutoDisposeBlocProvider<AuthBloc, AuthState>((_) => getIt<AuthBloc>());
+
 @singleton
-class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
+class AuthBloc extends Cubit<AuthState> with SafeBlocBase {
   final AuthRepository _repository;
 
   AuthBloc(
@@ -26,16 +30,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
           } else {
             return const _Unauthenticated();
           }
-        }()) {
-    on<AuthEvent>(
-      (event, emit) => event.when(
-        login: (request) => _login(request, emit),
-        logout: () => _logout(emit),
-      ),
-    );
-  }
+        }());
 
-  void _login(LoginRequest request, Emitter emit) async {
+  Future<void> login(LoginRequest request) async {
     if (!Validator.isValidEmail(request.email)) {
       emit(const _Error(AuthError.invalidEmail()));
     } else if (!Validator.isValidPassword(request.password)) {
@@ -53,7 +50,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
     }
   }
 
-  void _logout(Emitter emit) async {
+  void logout() async {
     await state.whenOrNull(authenticated: (_) async {
       emit(const _Loading());
       await _repository.logout();

@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../../../generated/l10n.dart';
+import '../../../../../../common/extensions/optional_x.dart';
 import '../../../../../../common/utils/app_environment.dart';
 
 part 'api_error.freezed.dart';
@@ -49,6 +50,9 @@ class ApiError with _$ApiError implements Exception {
             : S.current.error,
         orElse: () =>
             S.current.error +
-            (AppEnvironment.flavor != AppEnvironment.prd ? ': $code' : ''),
+            (AppEnvironment.flavor != AppEnvironment.prd &&
+                    code.isNotNullOrEmpty
+                ? ': $code'
+                : ''),
       );
 }
