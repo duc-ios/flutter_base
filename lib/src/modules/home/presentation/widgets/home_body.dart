@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:gap/gap.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
@@ -18,18 +18,18 @@ class HomeBody extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) => state.maybeWhen(
-              orElse: () => Text(context.s.error_unexpected),
-              authenticated: (user) => CircleAvatar(
-                backgroundImage: NetworkImage(user.avatar),
-                radius: 100,
-              ),
-            ),
+          Consumer(
+            builder: (context, ref, _) => ref.watch(authProvider).maybeWhen(
+                  orElse: () => Text(context.s.error_unexpected),
+                  authenticated: (user) => CircleAvatar(
+                    backgroundImage: NetworkImage(user.avatar),
+                    radius: 100,
+                  ),
+                ),
           ),
           const Gap(8),
-          BlocBuilder<AuthBloc, AuthState>(
-            builder: (context, state) => state.maybeWhen(
+          Consumer(
+            builder: (context, ref, _) => ref.watch(authProvider).maybeWhen(
                 orElse: () => Text(context.s.error_unexpected),
                 authenticated: (user) => Text(context.s.hello(user.name),
                     textAlign: TextAlign.center,

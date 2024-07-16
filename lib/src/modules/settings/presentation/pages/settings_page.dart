@@ -1,6 +1,6 @@
 import 'package:auto_route/annotations.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../core/application/auth_bloc/auth_bloc.dart';
@@ -12,13 +12,13 @@ class SettingsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthBloc, AuthState>(
-      builder: (context, state) => Scaffold(
+    return Consumer(
+      builder: (context, ref, _) => Scaffold(
         appBar: AppBar(title: Text(context.s.settings)),
-        body: state.maybeWhen(
-          orElse: () => const Center(child: CircularProgressIndicator()),
-          authenticated: (user) => const SettingsBody(),
-        ),
+        body: ref.watch(authProvider).maybeWhen(
+              orElse: () => const Center(child: CircularProgressIndicator()),
+              authenticated: (user) => const SettingsBody(),
+            ),
       ),
     );
   }

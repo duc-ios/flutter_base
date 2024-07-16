@@ -15,6 +15,7 @@ class EmailWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return TextField(
       controller: _emailTextEditingController,
+      keyboardType: TextInputType.emailAddress,
       decoration: InputDecoration(
         label: Text(context.s.email),
         hintText: 'example@domain.com',

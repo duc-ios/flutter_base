@@ -1,16 +1,21 @@
-import 'package:bloc/bloc.dart';
 import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:result_dart/result_dart.dart';
+import 'package:riverbloc/riverbloc.dart';
 
 import '../../../../common/mixin/safe_bloc_base.dart';
+import '../../../../common/utils/getit_utils.dart';
 import '../../../../core/domain/errors/api_error.dart';
 import '../../domain/repositories/supportive_repository.dart';
 
 part 'supportive_cubit.freezed.dart';
 part 'supportive_state.dart';
+
+final supportiveProvider =
+    AutoDisposeBlocProviderFamily<SupportiveCubit, SupportiveState, String>(
+        (ref, id) => getIt<SupportiveCubit>(param1: id));
 
 @injectable
 class SupportiveCubit extends Cubit<SupportiveState> with SafeBlocBase {

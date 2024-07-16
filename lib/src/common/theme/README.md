@@ -63,8 +63,9 @@ class AppWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final router = getIt<AppRouter>();
-    return BlocBuilder<LangCubit, Locale>(
-      builder: (context, locale) {
+    return Consumer(
+      builder: (context, ref, _) {
+        final local = ref.watch(langProvider);
         return AppThemeWrapper(
          appTheme: AppTheme.create(
               locale,

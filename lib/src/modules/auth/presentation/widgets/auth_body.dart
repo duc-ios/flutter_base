@@ -19,77 +19,72 @@ class _AuthBodyState extends State<AuthBody> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      color: ColorName.background,
-      child: Center(
-        child: BlocConsumer<AuthBloc, AuthState>(
-          listener: (context, state) {
-            state.whenOrNull(
-              error: (error) => error.whenOrNull(
-                api: (error) => context.showApiError(error),
-                other: (message) => context.showError(message),
-              ),
-            );
-          },
-          builder: (context, state) {
-            return Stack(alignment: Alignment.center, children: [
-              SafeArea(
-                child: SingleChildScrollView(
-                  child: Padding(
-                    padding: const EdgeInsets.all(32.0),
-                    child: Wrap(
-                      alignment: WrapAlignment.center,
-                      runSpacing: 16.0,
-                      children: [
-                        Assets.images.welcome.image(),
-                        EmailWidget(
-                          emailTextEditingController:
-                              _emailTextEditingController,
-                          errorText: state.whenOrNull<String?>(
-                            error: (error) => error.whenOrNull(
-                              invalidEmail: () => context.s.error_invalid_email,
-                            ),
+    return Consumer(builder: (context, ref, _) {
+      final state = ref.watch(authProvider);
+      ref.listen(
+        authProvider,
+        (_, current) => current.whenOrNull(
+          error: (error) => error.whenOrNull(
+            api: (error) => context.showApiError(error),
+            other: (message) => context.showError(message),
+          ),
+        ),
+      );
+      return LoadingWidget(
+        isLoading: state == const AuthState.loading(),
+        child: Container(
+          color: ColorName.background,
+          child: Center(
+            child: SafeArea(
+              child: SingleChildScrollView(
+                child: Padding(
+                  padding: const EdgeInsets.all(32.0),
+                  child: Wrap(
+                    alignment: WrapAlignment.center,
+                    runSpacing: 16.0,
+                    children: [
+                      Assets.images.welcome.image(),
+                      EmailWidget(
+                        emailTextEditingController: _emailTextEditingController,
+                        errorText: state.whenOrNull<String?>(
+                          error: (error) => error.whenOrNull(
+                            invalidEmail: () => context.s.error_invalid_email,
                           ),
                         ),
-                        PasswordWidget(
-                          passwordTextEditingController:
-                              _passwordTextEditingController,
-                          errorText: state.whenOrNull<String?>(
-                            error: (error) => error.whenOrNull(
-                              invalidPassword: () =>
-                                  context.s.error_invalid_password,
-                            ),
+                      ),
+                      PasswordWidget(
+                        passwordTextEditingController:
+                            _passwordTextEditingController,
+                        errorText: state.whenOrNull<String?>(
+                          error: (error) => error.whenOrNull(
+                            invalidPassword: () =>
+                                context.s.error_invalid_password,
                           ),
                         ),
-                        ElevatedButton(
+                      ),
+                      Consumer(builder: (context, ref, _) {
+                        return ElevatedButton(
                           child: Text(context.s.login),
-                          onPressed: () => _login(context),
-                        ),
-                      ],
-                    ),
+                          onPressed: () => login(ref),
+                        );
+                      }),
+                    ],
                   ),
                 ),
               ),
-              if (state == const AuthState.loading())
-                Container(
-                  width: double.infinity,
-                  height: double.infinity,
-                  color: Colors.black.withOpacity(0.5),
-                  child: const Center(child: CircularProgressIndicator()),
-                )
-            ]);
-          },
+            ),
+          ),
         ),
-      ),
-    );
+      );
+    });
   }
 
-  void _login(BuildContext context) async {
+  void login(WidgetRef ref) async {
     FocusManager.instance.primaryFocus?.unfocus();
     final email = _emailTextEditingController.text;
     final password = _passwordTextEditingController.text;
-    context
-        .read<AuthBloc>()
+    ref
+        .read(authProvider.bloc)
         .add(AuthEvent.login(LoginRequest(email: email, password: password)));
   }
 }

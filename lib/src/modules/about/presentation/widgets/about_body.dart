@@ -1,26 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../common/extensions/int_duration.dart';
 import '../../application/blocs/about/about_bloc.dart';
 
-class AboutBody extends StatelessWidget {
+class AboutBody extends ConsumerWidget {
   const AboutBody({
     super.key,
   });
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(BuildContext context, WidgetRef ref) {
+    final state = ref.watch(aboutProvider);
+
     return Padding(
-      padding: const EdgeInsets.all(16),
-      child: BlocBuilder<AboutBloc, AboutState>(builder: (context, state) {
-        return Column(
+        padding: const EdgeInsets.all(16),
+        child: Column(
           children: [
             AnimatedSize(
               duration: 300.milliseconds,
               child: SizedBox(
-                  height: state.when(show: () => null, hide: () => 0.0),
+                  height: ref
+                      .read(aboutProvider)
+                      .when(show: () => null, hide: () => 0.0),
                   width: context.mediaQuery.size.width,
                   child: const Text(
                     '''
@@ -34,17 +37,15 @@ Cupidatat sint commodo est consequat sunt officia adipisicing cupidatat in.
             OutlinedButton(
               onPressed: () => state.when(
                 show: () =>
-                    context.read<AboutBloc>().add(const AboutEvent.hide()),
+                    ref.read(aboutProvider.bloc).add(const AboutEvent.hide()),
                 hide: () =>
-                    context.read<AboutBloc>().add(const AboutEvent.show()),
+                    ref.read(aboutProvider.bloc).add(const AboutEvent.show()),
               ),
               child: Icon(state.when(
                   show: () => Icons.visibility_off,
                   hide: () => Icons.visibility)),
             )
           ],
-        );
-      }),
-    );
+        ));
   }
 }
