@@ -1,13 +1,16 @@
 #!/usr/bin/env bash
 
-bump_version=false
-bump_build=true
-generate=true
-build_ios=true
-build_android=true
+flavor="_"
+bump_version=n
+bump_build="y"
+generate="y"
+build_ios="y"
+build_android="y"
+export_method=enterprise
 
-while getopts v:b:g:a:i: flag; do
+while getopts f:v:b:g:a:i: flag; do
   case "${flag}" in
+  f) flavor=${OPTARG} ;;
   v) bump_version=${OPTARG} ;;
   b) bump_build=${OPTARG} ;;
   g) generate=${OPTARG} ;;
@@ -16,28 +19,31 @@ while getopts v:b:g:a:i: flag; do
   esac
 done
 
-echo "bump_version: $bump_version"
-echo "bump_build: $bump_build"
-echo "generate: $generate"
-
-# echo "Select flavor to build"
-select flavor in "alpha" "dev" "prg" "uat" "prd"; do
-  echo "Selected flavor: #$flavor"
-
-  export_method=enterprise
-  case $flavor in
-  "prd") export_method=app-store ;;
-  esac
+function start() {
+  echo "flavor: $flavor"
+  echo "bump_version: $bump_version"
+  echo "bump_build: $bump_build"
+  echo "generate: $generate"
+  echo "build_ios: $build_ios"
+  echo "build_android: $build_android"
   echo "export_method: $export_method"
 
-  if [ $bump_version == true ]; then
-    # Bump version number (dart pub global activate magical_version_bump)
+  # Bump version number (dart pub global activate magical_version_bump)
+  if [ $bump_version == "y" ]; then
     mag modify bump --targets 'patch'
+  else
+    if [ $bump_version != "n" ]; then
+      mag modify set --ver $bump_version
+    fi
   fi
 
-  if [ $bump_build == true ]; then
-    # Bump build number (dart pub global activate magical_version_bump)
+  # Bump build number (dart pub global activate magical_version_bump)
+  if [ $bump_build == "y" ]; then
     mag modify bump --targets 'build-number'
+  else
+    if [ $bump_build != "n" ]; then
+      mag modify set --build $bump_build
+    fi
   fi
 
   app_name=$(grep -m 1 'name: ' pubspec.yaml | head -1 | sed 's/name: //')
@@ -45,7 +51,7 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
   file_name="${app_name}_${flavor}_${version}"
   echo "Preparing build: $file_name"
 
-  if [ $generate == true ]; then
+  if [ $generate == "y" ]; then
     # Generate assets
     echo "Generating..."
     flutter pub get
@@ -55,7 +61,7 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
     echo "Building without generating..."
   fi
 
-  if [ $build_android == true ]; then
+  if [ $build_android == "y" ]; then
     # Build and open apk
     apk_path="build/app/outputs/flutter-apk/${file_name}.apk"
     flutter build apk --flavor $flavor &&
@@ -63,7 +69,7 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
       open build/app/outputs/flutter-apk
   fi
 
-  if [ $build_ios == true ]; then
+  if [ $build_ios == "y" ]; then
     # Build and open ipa
     ipa_path="build/ios/ipa/${file_name}.ipa"
     if [ $flavor == "prd" ]; then
@@ -71,14 +77,13 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
     else
       flutter build ipa --release --export-method $export_method --flavor $flavor
     fi
-  fi
+    mv build/ios/ipa/$app_name.ipa $ipa_path
 
-  mv build/ios/ipa/$app_name.ipa $ipa_path
-
-  if [ $export_method == "app-store" ]; then
-    sh scripts/tf.sh $flavor
-  else
-    open build/ios/ipa
+    if [ $export_method == "app-store" ]; then
+      sh scripts/tf.sh $flavor
+    else
+      open build/ios/ipa
+    fi
   fi
 
   # Commit and tag this change.
@@ -87,4 +92,16 @@ select flavor in "alpha" "dev" "prg" "uat" "prd"; do
   git tag "release/$flavor/$version" -f
 
   exit 0
-done
+}
+
+if [ $flavor == "_" ]; then
+  select selected_flavor in "alpha" "dev" "prg" "uat" "prd"; do
+    flavor=$selected_flavor
+    case $flavor in
+    "prd") export_method=app-store ;;
+    esac
+    start
+  done
+else
+  start
+fi
