@@ -21,7 +21,11 @@ dependencies:
   json_annotation: ^4.9.0
   dio: ^5.5.0+1
   get_it: ^7.7.0
-  injectable: ^2.4.2
+  injectable:
+    git:
+      url: https://github.com/cogivn/injectable.git
+      path: injectable
+      ref: develop
   shared_preferences: ^2.2.3
   flutter_secure_storage: ^9.2.2
   loggy: ^2.0.3
@@ -40,6 +44,7 @@ dependencies:
   talker_dio_logger: ^4.3.2
   talker_bloc_logger: ^4.3.2
   faker_dart: ^0.2.2
+  webview_flutter: ^4.8.0
 
 dev_dependencies:
   flutter_lints: ^4.0.0
@@ -56,7 +61,11 @@ dev_dependencies:
   flutter_gen_runner: ^5.6.0
   intl_utils: ^2.8.7
   enum_generator: ^1.1.2
-  injectable_generator: ^2.6.1
+  injectable_generator:
+    git:
+      url: https://github.com/cogivn/injectable.git
+      path: injectable_generator
+      ref: develop
   flutter_launcher_icons: ^0.13.1
   retrofit_generator: ^8.1.1
 

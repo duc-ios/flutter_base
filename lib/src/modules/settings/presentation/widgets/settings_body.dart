@@ -51,23 +51,17 @@ class SettingsBody extends StatelessWidget {
           title: Text(context.s.terms_conditions),
           onTap: () => context.pushRoute(SupportiveRoute(
             title: context.s.terms_conditions,
-            content: '''
-Ex cillum cillum deserunt labore ea cupidatat consectetur irure labore esse commodo nisi. Nulla culpa voluptate consectetur eiusmod nisi veniam ut. Enim ex culpa enim occaecat ex.
-Commodo deserunt officia id ad occaecat id voluptate sint pariatur consectetur eu. Cillum eiusmod laboris tempor ea et quis duis quis sint cupidatat do. Laboris deserunt esse ut ullamco adipisicing Lorem consectetur pariatur sit amet minim reprehenderit consectetur.
-In id sint aute id ipsum deserunt fugiat tempor nulla proident aliqua nulla non. Ut voluptate reprehenderit deserunt aliqua reprehenderit elit. Velit cillum amet cillum consequat nulla. Commodo incididunt laboris fugiat proident occaecat proident adipisicing velit nisi ut aliquip Lorem laborum. Officia est cillum officia ut reprehenderit proident Lorem dolore consequat.
-Deserunt eiusmod est ut ut exercitation aliquip eu consequat eu exercitation aliqua mollit voluptate. Occaecat aute labore dolore dolore cupidatat incididunt. Laborum dolore voluptate aute eiusmod. Fugiat occaecat eu aliqua aute cupidatat eiusmod culpa deserunt. Aliqua proident voluptate do commodo do excepteur ex ut quis culpa cillum proident. Laborum elit aliquip eu ad minim non dolor aliquip.''',
+            slug: 'terms_conditions',
           )),
         ),
         ListTile(
           title: Text(context.s.privacy_policies),
-          onTap: () => context.pushRoute(SupportiveRoute(
-            title: context.s.privacy_policies,
-            content: '''
-Et incididunt minim tempor anim. Eiusmod cupidatat dolore est nulla. Cillum eu excepteur qui aliquip ullamco qui excepteur excepteur do esse labore minim voluptate. Minim deserunt tempor excepteur ipsum voluptate nulla aliquip elit aute culpa laborum aliquip mollit eu.
-Ea consectetur magna tempor officia do mollit reprehenderit proident esse culpa commodo culpa proident. Sit aliquip quis ea aliqua ullamco ad. Consequat labore consequat nostrud qui minim ea sit eiusmod laboris do incididunt.
-Aute adipisicing aliqua velit ullamco cupidatat dolore sunt sint. Officia dolor cupidatat exercitation consectetur aliquip reprehenderit velit. Ad cillum sunt proident nostrud in exercitation. Enim nostrud voluptate duis duis ut velit id culpa labore ipsum ullamco fugiat. Incididunt est tempor irure velit aliquip est commodo id sit. Tempor qui nisi ex officia quis aute reprehenderit elit Lorem esse sit aliqua ullamco. Quis do amet veniam consectetur dolore reprehenderit pariatur laboris adipisicing id et.
-Amet cupidatat dolore fugiat esse. Et occaecat ullamco id amet Lorem in dolore fugiat. Consectetur amet id mollit nostrud do excepteur sint aliqua laborum velit. Consequat sunt esse Lorem Lorem proident commodo. Enim aute elit consectetur ex sint Lorem. Consectetur eiusmod veniam deserunt consectetur duis fugiat adipisicing aliqua aliqua officia dolor.''',
-          )),
+          onTap: () => context.pushRoute(
+            SupportiveRoute(
+              title: context.s.privacy_policies,
+              slug: 'privacy_policies',
+            ),
+          ),
         ),
         ListTile(
           title: Text(context.s.logout),
