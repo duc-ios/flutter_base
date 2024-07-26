@@ -3,8 +3,8 @@ import 'package:dartx/dartx.dart';
 import 'package:flutter/foundation.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
+import 'package:result_dart/result_dart.dart';
 
-import '../../../../core/infrastructure/datasources/remote/api/api_client.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
 import '../../domain/repositories/supportive_repository.dart';
 
