@@ -5,6 +5,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 import 'package:result_dart/result_dart.dart';
 
+import '../../../../common/mixin/safe_bloc_base.dart';
 import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
 import '../../domain/repositories/supportive_repository.dart';
 
@@ -12,7 +13,7 @@ part 'supportive_cubit.freezed.dart';
 part 'supportive_state.dart';
 
 @injectable
-class SupportiveCubit extends Cubit<SupportiveState> {
+class SupportiveCubit extends Cubit<SupportiveState> with SafeBlocBase {
   final SupportiveRepository _repository;
   final String slug;
 

@@ -1,10 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../common/mixin/safe_bloc_base.dart';
+
 part 'tap_cubit.freezed.dart';
 part 'tap_state.dart';
 
-class TapCubit extends Cubit<TapState> {
+class TapCubit extends Cubit<TapState> with SafeBlocBase {
   TapCubit() : super(const _Value(0));
 
   var _value = 0;
