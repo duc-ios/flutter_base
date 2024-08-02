@@ -1,11 +1,13 @@
 import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
+import '../../../../../common/mixin/safe_bloc_base.dart';
+
 part 'counter_bloc.freezed.dart';
 part 'counter_event.dart';
 part 'counter_state.dart';
 
-class CounterBloc extends Bloc<CounterEvent, CounterState> {
+class CounterBloc extends Bloc<CounterEvent, CounterState> with SafeBlocBase {
   CounterBloc() : super(const _Value(0)) {
     on<CounterEvent>((event, emit) async {
       await event.when(

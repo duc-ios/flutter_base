@@ -4,11 +4,12 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 
 import '../../../../common/extensions/locale_x.dart';
+import '../../../../common/mixin/safe_bloc_base.dart';
 import '../../../../common/utils/logger.dart';
 import '../../../domain/interfaces/lang_repository.dart';
 
 @singleton
-class LangCubit extends Cubit<Locale> {
+class LangCubit extends Cubit<Locale> with SafeBlocBase {
   LangCubit(
     this._repository,
   ) : super(_repository.getLocale());

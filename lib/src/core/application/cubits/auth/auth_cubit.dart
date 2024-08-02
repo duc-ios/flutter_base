@@ -2,6 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
+import '../../../../common/mixin/safe_bloc_base.dart';
 import '../../../../common/utils/validator.dart';
 import '../../../../modules/auth/domain/entities/user.dart';
 import '../../../../modules/auth/domain/interfaces/auth_repository.dart';
@@ -12,7 +13,7 @@ part 'auth_cubit.freezed.dart';
 part 'auth_state.dart';
 
 @singleton
-class AuthCubit extends Cubit<AuthState> {
+class AuthCubit extends Cubit<AuthState> with SafeBlocBase {
   final AuthRepository _repository;
 
   AuthCubit(
