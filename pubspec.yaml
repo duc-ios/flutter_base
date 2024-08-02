@@ -111,7 +111,7 @@ flutter_gen:
   colors:
     enabled: true
     inputs:
-      - assets/color/colors.xml
+      - assets/colors/colors.xml
 
 flutter_intl:
   enabled: true
