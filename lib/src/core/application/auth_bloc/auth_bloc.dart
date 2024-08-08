@@ -2,21 +2,22 @@ import 'package:bloc/bloc.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:injectable/injectable.dart';
 
-import '../../../../common/mixin/safe_bloc_base.dart';
-import '../../../../common/utils/validator.dart';
-import '../../../../modules/auth/domain/entities/user.dart';
-import '../../../../modules/auth/domain/interfaces/auth_repository.dart';
-import '../../../domain/errors/auth_error.dart';
-import '../../../infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
+import '../../../common/mixin/safe_bloc_base.dart';
+import '../../../common/utils/validator.dart';
+import '../../../modules/auth/domain/entities/user.dart';
+import '../../../modules/auth/domain/interfaces/auth_repository.dart';
+import '../../domain/errors/auth_error.dart';
+import '../../infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 
-part 'auth_cubit.freezed.dart';
+part 'auth_bloc.freezed.dart';
+part 'auth_event.dart';
 part 'auth_state.dart';
 
 @singleton
-class AuthCubit extends Cubit<AuthState> with SafeBlocBase {
+class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
   final AuthRepository _repository;
 
-  AuthCubit(
+  AuthBloc(
     this._repository,
   ) : super(() {
           final user = _repository.getUser();
@@ -25,9 +26,16 @@ class AuthCubit extends Cubit<AuthState> with SafeBlocBase {
           } else {
             return const _Unauthenticated();
           }
-        }());
+        }()) {
+    on<AuthEvent>(
+      (event, emit) => event.when(
+        login: (request) => _login(request, emit),
+        logout: () => _logout(emit),
+      ),
+    );
+  }
 
-  Future<void> login(LoginRequest request) async {
+  void _login(LoginRequest request, Emitter emit) async {
     if (!Validator.isValidEmail(request.email)) {
       emit(const _Error(AuthError.invalidEmail()));
     } else if (!Validator.isValidPassword(request.password)) {
@@ -45,7 +53,7 @@ class AuthCubit extends Cubit<AuthState> with SafeBlocBase {
     }
   }
 
-  void logout() async {
+  void _logout(Emitter emit) async {
     await state.whenOrNull(authenticated: (_) async {
       emit(const _Loading());
       await _repository.logout();

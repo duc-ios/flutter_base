@@ -22,7 +22,7 @@ class _AuthBodyState extends State<AuthBody> {
     return Container(
       color: ColorName.background,
       child: Center(
-        child: BlocConsumer<AuthCubit, AuthState>(
+        child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             state.whenOrNull(
               error: (error) => error.whenOrNull(
@@ -88,8 +88,8 @@ class _AuthBodyState extends State<AuthBody> {
     FocusManager.instance.primaryFocus?.unfocus();
     final email = _emailTextEditingController.text;
     final password = _passwordTextEditingController.text;
-    await context
-        .read<AuthCubit>()
-        .login(LoginRequest(email: email, password: password));
+    context
+        .read<AuthBloc>()
+        .add(AuthEvent.login(LoginRequest(email: email, password: password)));
   }
 }

@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
-import '../../../../core/application/cubits/auth/auth_cubit.dart';
+import '../../../../core/application/auth_bloc/auth_bloc.dart';
 import '../../../app/app_router.dart';
 
 class HomeBody extends StatelessWidget {
@@ -17,7 +17,7 @@ class HomeBody extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          BlocBuilder<AuthCubit, AuthState>(
+          BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) => state.maybeWhen(
               orElse: () => Text(context.s.error_unexpected),
               authenticated: (user) => CircleAvatar(
@@ -27,7 +27,7 @@ class HomeBody extends StatelessWidget {
             ),
           ),
           const SizedBox(height: 8),
-          BlocBuilder<AuthCubit, AuthState>(
+          BlocBuilder<AuthBloc, AuthState>(
             builder: (context, state) => state.maybeWhen(
                 orElse: () => Text(context.s.error_unexpected),
                 authenticated: (user) => Text(context.s.hello(user.name),

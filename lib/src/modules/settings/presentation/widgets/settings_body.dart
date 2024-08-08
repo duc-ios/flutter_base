@@ -5,8 +5,8 @@ import 'package:package_info_plus/package_info_plus.dart';
 
 import '../../../../common/extensions/build_context_x.dart';
 import '../../../../common/extensions/locale_x.dart';
-import '../../../../core/application/cubits/auth/auth_cubit.dart';
-import '../../../../core/application/cubits/lang/lang_cubit.dart';
+import '../../../../core/application/auth_bloc/auth_bloc.dart';
+import '../../../../core/application/lang_cubit/lang_cubit.dart';
 import '../../../app/app_router.dart';
 
 class SettingsBody extends StatelessWidget {
@@ -65,7 +65,7 @@ class SettingsBody extends StatelessWidget {
         ),
         ListTile(
           title: Text(context.s.logout),
-          onTap: () => context.read<AuthCubit>().logout(),
+          onTap: () => context.read<AuthBloc>().add(const AuthEvent.logout()),
         ),
         ListTile(
           title: FutureBuilder<PackageInfo>(

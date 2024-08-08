@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/getit_utils.dart';
-import '../../../../core/application/cubits/auth/auth_cubit.dart';
+import '../../../../core/application/auth_bloc/auth_bloc.dart';
 import '../../../app/app_router.dart';
 
 @RoutePage()
@@ -15,7 +15,7 @@ class SplashPage extends StatelessWidget {
   fetchAll() async {
     await Future.delayed(1.seconds);
 
-    getIt<AuthCubit>().state.whenOrNull(
+    getIt<AuthBloc>().state.whenOrNull(
           authenticated: (user) =>
               getIt<AppRouter>().replaceAll([const HomeRoute()]),
           unauthenticated: () =>
