@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:faker_dart/faker_dart.dart';
 import 'package:injectable/injectable.dart';
 import 'package:result_dart/result_dart.dart';
-import 'package:talker_flutter/talker_flutter.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/app_environment.dart';
@@ -41,7 +40,7 @@ class AuthRepositoryMock implements AuthRepository {
     CancelToken? token,
   }) async {
     final user = AuthDataSourceMock.users
-        .firstWhereOrNull((user) => user.email == request.email);
+        .firstOrNullWhere((user) => user.email == request.email);
     if (user == null) {
       return ApiError.server(message: 'Invalid email/password').toFailure();
     }

@@ -43,12 +43,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
     } else {
       emit(const _Loading());
       final result = await _repository.login(request);
-      emit(result.fold(
-        (success) {
-          _repository.setUser(success);
+      emit(await result.fold(
+        (success) async {
+          await _repository.setUser(success);
           return _Authenticated(success);
         },
-        (failure) => _Error(AuthError.api(failure)),
+        (failure) => Future.value(_Error(AuthError.api(failure))),
       ));
     }
   }
