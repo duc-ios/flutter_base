@@ -23,11 +23,11 @@ if (flutterVersionName == null) {
 }
 
 project.ext.envConfigFiles = [
-        alpha: "env/.env.alpha",
-        dev  : "env/.env.dev",
-        prg  : "env/.env.prg",
-        uat  : "env/.env.uat",
-        prd  : "env/.env.prd",
+        alpha: "env/.alpha.env",
+        dev  : "env/.dev.env",
+        prg  : "env/.prg.env",
+        uat  : "env/.uat.env",
+        prd  : "env/.prd.env",
 ]
 apply from: project(':flutter_config').projectDir.getPath() + "/dotenv.gradle"
 
@@ -57,7 +57,7 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
-        resValue "string", "build_config_package", "ios.duc.flutter_base"
+        resValue "string", "build_config_package", "ios.duc.flutter.base"
     }
 
     buildTypes {

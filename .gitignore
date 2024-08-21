@@ -135,3 +135,5 @@ app.*.symbols
 ios/Flutter/tmp.xcconfig
 ios/.envfile
 
+# Environments
+*.env
