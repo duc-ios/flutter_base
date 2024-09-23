@@ -1,7 +1,7 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:result_dart/result_dart.dart';
 
-import 'api_error.dart';
+import '../../../../../domain/errors/api_error.dart';
 
 part 'api_response.freezed.dart';
 part 'api_response.g.dart';

@@ -3,7 +3,8 @@ import 'dart:io';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../../../../../../generated/l10n.dart';
-import '../../../../../../common/utils/app_environment.dart';
+import '../../../common/extensions/optional_x.dart';
+import '../../../common/utils/app_environment.dart';
 
 part 'api_error.freezed.dart';
 part 'api_error.g.dart';
@@ -16,7 +17,8 @@ class ApiError with _$ApiError implements Exception {
   factory ApiError.internal(String message) = _Internal;
   factory ApiError.cancelled() = _Cancelled;
   factory ApiError.unexpected() = _Unexpected;
-  factory ApiError.unauthorized(String message) = _Unauthorized;
+  factory ApiError.unauthorized() = _Unauthorized;
+  factory ApiError.badRequest() = _BadRequest;
 
   factory ApiError.fromJson(Map<String, dynamic> json) =>
       _$ApiErrorFromJson(json);
@@ -37,18 +39,21 @@ class ApiError with _$ApiError implements Exception {
       server: (code, message) => message,
       internal: (message) => message,
       network: (_, message) => message,
-      unauthorized: (message) => message,
+      unauthorized: () => S.current.error_unauthorized,
+      badRequest: () => S.current.error_bad_request,
     );
   }
 
   String get title => maybeWhen(
         (code, message) => S.current.error,
-        unauthorized: (message) => S.current.error_unauthorized,
         network: (code, __) => code == HttpStatus.internalServerError
             ? S.current.error_internal_server
             : S.current.error,
         orElse: () =>
             S.current.error +
-            (AppEnvironment.flavor != AppEnvironment.prd ? ': $code' : ''),
+            (AppEnvironment.flavor != AppEnvironment.prd &&
+                    code.isNotNullOrEmpty
+                ? ': $code'
+                : ''),
       );
 }

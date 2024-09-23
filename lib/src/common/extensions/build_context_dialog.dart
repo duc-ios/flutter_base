@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../../core/infrastructure/datasources/remote/api/base/api_error.dart';
+import '../../core/domain/errors/api_error.dart';
 import '../widgets/adaptive_dialog_action.dart';
 import 'build_context_x.dart';
 

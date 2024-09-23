@@ -10,9 +10,9 @@ import 'package:talker_flutter/talker_flutter.dart';
 import '../../../../../../generated/l10n.dart';
 import '../../../../../common/extensions/optional_x.dart';
 import '../../../../../common/utils/app_environment.dart';
+import '../../../../domain/errors/api_error.dart';
 import '../../../../domain/interfaces/lang_repository.dart';
 import '../../local/storage.dart';
-import 'base/api_error.dart';
 import 'interceptors/auth_interceptor.dart';
 import 'interceptors/error_interceptor.dart';
 import 'interceptors/lang_interceptor.dart';
@@ -113,7 +113,7 @@ extension DioExceptionX on DioException {
       }
       responseMessage = responseMessage ?? S.current.error_unexpected;
       if (statusCode == 401) {
-        return ApiError.unauthorized(responseMessage);
+        return ApiError.unauthorized();
       } else if (statusCode >= 400 && statusCode < 500) {
         return ApiError.server(code: statusCode, message: responseMessage);
       } else {

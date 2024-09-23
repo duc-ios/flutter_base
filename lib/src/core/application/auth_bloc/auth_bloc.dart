@@ -35,7 +35,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
     );
   }
 
-  void _login(LoginRequest request, Emitter emit) async {
+  void _login(LoginRequest request, Emitter<AuthState> emit) async {
     if (!Validator.isValidEmail(request.email)) {
       emit(const _Error(AuthError.invalidEmail()));
     } else if (!Validator.isValidPassword(request.password)) {
@@ -48,12 +48,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> with SafeBlocBase {
           await _repository.setUser(success);
           return _Authenticated(success);
         },
-        (failure) => Future.value(_Error(AuthError.api(failure))),
+        (failure) => _Error(AuthError.api(failure)),
       ));
     }
   }
 
-  void _logout(Emitter emit) async {
+  void _logout(Emitter<AuthState> emit) async {
     await state.whenOrNull(authenticated: (_) async {
       emit(const _Loading());
       await _repository.logout();

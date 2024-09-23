@@ -5,7 +5,7 @@ import 'package:result_dart/result_dart.dart';
 
 import '../../../../common/extensions/int_duration.dart';
 import '../../../../common/utils/app_environment.dart';
-import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
+import '../../../../core/domain/errors/api_error.dart';
 import '../../domain/repositories/supportive_repository.dart';
 
 @LazySingleton(as: SupportiveRepository, env: AppEnvironment.environments)

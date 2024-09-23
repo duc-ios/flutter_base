@@ -1,6 +1,6 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-import '../../infrastructure/datasources/remote/api/base/api_error.dart';
+import 'api_error.dart';
 
 part 'auth_error.freezed.dart';
 

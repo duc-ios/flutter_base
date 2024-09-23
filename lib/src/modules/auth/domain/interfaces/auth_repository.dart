@@ -1,7 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:result_dart/result_dart.dart';
 
-import '../../../../core/infrastructure/datasources/remote/api/base/api_error.dart';
+import '../../../../core/domain/errors/api_error.dart';
 import '../../../../core/infrastructure/datasources/remote/api/services/auth/models/login_request.dart';
 import '../entities/user.dart';
 
