@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:gap/gap.dart';
 
 import '../../../../common/extensions/build_context_dialog.dart';
 import '../../../../common/extensions/build_context_x.dart';
@@ -35,7 +36,7 @@ class CounterBody extends StatelessWidget {
                         value: (value) => Text('value: $value',
                             style: textTheme.displayMedium),
                       ) ??
-                      const SizedBox();
+                      const SizedBox.shrink();
                 }),
             BlocBuilder<TapCubit, TapState>(
                 buildWhen: (previous, current) =>
@@ -45,7 +46,7 @@ class CounterBody extends StatelessWidget {
                         value: (value) =>
                             Text('tap: $value', style: textTheme.displayMedium),
                       ) ??
-                      const SizedBox();
+                      const SizedBox.shrink();
                 })
           ]),
         ),
@@ -63,7 +64,7 @@ class CounterBody extends StatelessWidget {
                     .add(const CounterEvent.increasement());
               },
             ),
-            const SizedBox(height: 8),
+            const Gap(8),
             FloatingActionButton(
               heroTag: 'counterView_decrement_floatingActionButton',
               child: const Icon(Icons.remove),

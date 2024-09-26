@@ -80,7 +80,7 @@ class SettingsBody extends StatelessWidget {
                     style: context.textTheme.bodySmall,
                   );
                 }
-                return const SizedBox();
+                return const SizedBox.shrink();
               }),
         ),
       ],

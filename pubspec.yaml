@@ -45,6 +45,7 @@ dependencies:
   talker_bloc_logger: ^4.3.2
   faker_dart: ^0.2.2
   webview_flutter: ^4.8.0
+  gap: ^3.0.1
 
 dev_dependencies:
   flutter_lints: ^4.0.0
